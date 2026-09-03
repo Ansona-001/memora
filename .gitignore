@@ -26,6 +26,9 @@ test-results
 supabase/.temp
 supabase/.branches
 
+# Claude Code local state
+.claude/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
