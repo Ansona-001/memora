@@ -26,4 +26,10 @@ export const queryKeys = {
     details: (memoryId: string) =>
       [...queryKeys.memories.all, "details", memoryId] as const,
   },
+
+  home: {
+    all: ["home"] as const,
+    feed: (coupleSpaceId: string) =>
+      [...queryKeys.home.all, "feed", coupleSpaceId] as const,
+  },
 } as const;
