@@ -52,20 +52,20 @@ pnpm dev
 
 ## Scripts
 
-| Script                 | Description                                    |
-| ----------------------- | ----------------------------------------------- |
-| `pnpm dev`              | Start the Vite dev server                       |
-| `pnpm build`            | Type-check and build for production             |
-| `pnpm preview`          | Preview the production build locally            |
-| `pnpm lint`              | Run ESLint                                       |
-| `pnpm format`           | Format the codebase with Prettier                |
-| `pnpm format:check`     | Check formatting without writing changes         |
-| `pnpm typecheck`        | Run the TypeScript compiler with no output       |
-| `pnpm test`             | Run unit tests once with Vitest                  |
-| `pnpm test:watch`       | Run unit tests in watch mode                     |
-| `pnpm test:coverage`    | Run unit tests with coverage                     |
-| `pnpm e2e`              | Run Playwright end-to-end tests                  |
-| `pnpm validate`         | Run format check, lint, typecheck, tests, build  |
+| Script               | Description                                     |
+| -------------------- | ----------------------------------------------- |
+| `pnpm dev`           | Start the Vite dev server                       |
+| `pnpm build`         | Type-check and build for production             |
+| `pnpm preview`       | Preview the production build locally            |
+| `pnpm lint`          | Run ESLint                                      |
+| `pnpm format`        | Format the codebase with Prettier               |
+| `pnpm format:check`  | Check formatting without writing changes        |
+| `pnpm typecheck`     | Run the TypeScript compiler with no output      |
+| `pnpm test`          | Run unit tests once with Vitest                 |
+| `pnpm test:watch`    | Run unit tests in watch mode                    |
+| `pnpm test:coverage` | Run unit tests with coverage                    |
+| `pnpm e2e`           | Run Playwright end-to-end tests                 |
+| `pnpm validate`      | Run format check, lint, typecheck, tests, build |
 
 Run `pnpm validate` before considering any change complete.
 

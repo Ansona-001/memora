@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@mui/material/styles";
-import { render, screen, waitFor } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { render, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 
@@ -9,13 +10,22 @@ import { theme } from "@/theme/theme";
 import { routes } from "./routes";
 
 function renderRouterAt(initialPath: string) {
-  const router = createMemoryRouter(routes, { initialEntries: [initialPath] });
+  const router = createMemoryRouter(routes, {
+    initialEntries: [initialPath],
+  });
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+  });
 
-  return render(
+  render(
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ThemeProvider>,
   );
+
+  return router;
 }
 
 describe("router redirects", () => {
@@ -26,10 +36,10 @@ describe("router redirects", () => {
   it("redirects an unauthenticated user away from a protected route to /login", async () => {
     useAuthStore.setState({ session: null, status: "unauthenticated" });
 
-    renderRouterAt("/app/home");
+    const router = renderRouterAt("/app/home");
 
     await waitFor(() => {
-      expect(screen.getByText("Log in")).toBeInTheDocument();
+      expect(router.state.location.pathname).toBe("/login");
     });
   });
 
@@ -40,12 +50,10 @@ describe("router redirects", () => {
       status: "authenticated",
     });
 
-    renderRouterAt("/login");
+    const router = renderRouterAt("/login");
 
     await waitFor(() => {
-      expect(
-        screen.getByText("Your memories will live here"),
-      ).toBeInTheDocument();
+      expect(router.state.location.pathname).toBe("/app/home");
     });
   });
 });

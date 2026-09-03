@@ -1,10 +1,5 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import { LoginForm } from "../components/LoginForm";
 
 export function LoginPage() {
-  return (
-    <EmptyState
-      title="Log in"
-      description="Login will be implemented in the authentication phase."
-    />
-  );
+  return <LoginForm />;
 }

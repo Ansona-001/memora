@@ -1,10 +1,5 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import { RegisterForm } from "../components/RegisterForm";
 
 export function RegisterPage() {
-  return (
-    <EmptyState
-      title="Create your account"
-      description="Registration will be implemented in the authentication phase."
-    />
-  );
+  return <RegisterForm />;
 }

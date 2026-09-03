@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 
 import { primaryNavigation } from "@/config/navigation";
+import { LogoutButton } from "@/features/authentication/components/LogoutButton";
 
 export function DesktopSidebar() {
   return (
@@ -20,6 +21,8 @@ export function DesktopSidebar() {
         borderColor: "divider",
         py: 3,
         px: 2,
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Typography variant="h6" color="primary.main" sx={{ px: 1, mb: 3 }}>
@@ -47,6 +50,20 @@ export function DesktopSidebar() {
           </ListItemButton>
         ))}
       </List>
+      <Box
+        sx={{
+          mt: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          px: 1,
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          Account
+        </Typography>
+        <LogoutButton />
+      </Box>
     </Box>
   );
 }

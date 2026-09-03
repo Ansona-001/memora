@@ -1,10 +1,5 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import { ForgotPasswordForm } from "../components/ForgotPasswordForm";
 
 export function ForgotPasswordPage() {
-  return (
-    <EmptyState
-      title="Forgot password"
-      description="Password recovery will be implemented in the authentication phase."
-    />
-  );
+  return <ForgotPasswordForm />;
 }

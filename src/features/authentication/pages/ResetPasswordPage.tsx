@@ -1,10 +1,5 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import { ResetPasswordForm } from "../components/ResetPasswordForm";
 
 export function ResetPasswordPage() {
-  return (
-    <EmptyState
-      title="Reset password"
-      description="Password reset will be implemented in the authentication phase."
-    />
-  );
+  return <ResetPasswordForm />;
 }
