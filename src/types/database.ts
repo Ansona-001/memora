@@ -34,6 +34,132 @@ export type Database = {
   };
   public: {
     Tables: {
+      couple_invitations: {
+        Row: {
+          code: string;
+          couple_space_id: string;
+          created_at: string;
+          created_by: string;
+          expires_at: string;
+          id: string;
+          used_at: string | null;
+          used_by: string | null;
+        };
+        Insert: {
+          code: string;
+          couple_space_id: string;
+          created_at?: string;
+          created_by: string;
+          expires_at?: string;
+          id?: string;
+          used_at?: string | null;
+          used_by?: string | null;
+        };
+        Update: {
+          code?: string;
+          couple_space_id?: string;
+          created_at?: string;
+          created_by?: string;
+          expires_at?: string;
+          id?: string;
+          used_at?: string | null;
+          used_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "couple_invitations_couple_space_id_fkey";
+            columns: ["couple_space_id"];
+            isOneToOne: false;
+            referencedRelation: "couple_spaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "couple_invitations_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "couple_invitations_used_by_fkey";
+            columns: ["used_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      couple_members: {
+        Row: {
+          couple_space_id: string;
+          id: string;
+          joined_at: string;
+          user_id: string;
+        };
+        Insert: {
+          couple_space_id: string;
+          id?: string;
+          joined_at?: string;
+          user_id: string;
+        };
+        Update: {
+          couple_space_id?: string;
+          id?: string;
+          joined_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "couple_members_couple_space_id_fkey";
+            columns: ["couple_space_id"];
+            isOneToOne: false;
+            referencedRelation: "couple_spaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "couple_members_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: true;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      couple_spaces: {
+        Row: {
+          cover_path: string | null;
+          created_at: string;
+          created_by: string;
+          id: string;
+          name: string;
+          updated_at: string;
+        };
+        Insert: {
+          cover_path?: string | null;
+          created_at?: string;
+          created_by: string;
+          id?: string;
+          name?: string;
+          updated_at?: string;
+        };
+        Update: {
+          cover_path?: string | null;
+          created_at?: string;
+          created_by?: string;
+          id?: string;
+          name?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "couple_spaces_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;
@@ -63,7 +189,63 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      create_couple_invitation: {
+        Args: { p_couple_space_id: string };
+        Returns: {
+          code: string;
+          couple_space_id: string;
+          created_at: string;
+          created_by: string;
+          expires_at: string;
+          id: string;
+          used_at: string | null;
+          used_by: string | null;
+        };
+        SetofOptions: {
+          from: "*";
+          to: "couple_invitations";
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      create_couple_space: {
+        Args: { p_name?: string };
+        Returns: {
+          cover_path: string | null;
+          created_at: string;
+          created_by: string;
+          id: string;
+          name: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: "*";
+          to: "couple_spaces";
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      is_couple_member: {
+        Args: { p_couple_space_id: string };
+        Returns: boolean;
+      };
+      join_couple_space: {
+        Args: { p_code: string };
+        Returns: {
+          cover_path: string | null;
+          created_at: string;
+          created_by: string;
+          id: string;
+          name: string;
+          updated_at: string;
+        };
+        SetofOptions: {
+          from: "*";
+          to: "couple_spaces";
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
     };
     Enums: {
       [_ in never]: never;

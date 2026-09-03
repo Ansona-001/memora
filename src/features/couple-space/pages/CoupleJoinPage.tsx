@@ -1,10 +1,15 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+import { JoinCoupleSpaceForm } from "../components/JoinCoupleSpaceForm";
 
 export function CoupleJoinPage() {
   return (
-    <EmptyState
-      title="Join a couple space"
-      description="Joining by invitation will be implemented in the couple space phase."
-    />
+    <Stack spacing={3}>
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Join your partner&apos;s space
+      </Typography>
+      <JoinCoupleSpaceForm />
+    </Stack>
   );
 }

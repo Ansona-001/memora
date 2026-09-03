@@ -1,10 +1,15 @@
-import { EmptyState } from "@/components/feedback/EmptyState";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+import { CreateCoupleSpaceForm } from "../components/CreateCoupleSpaceForm";
 
 export function CoupleCreatePage() {
   return (
-    <EmptyState
-      title="Create a couple space"
-      description="Couple space creation will be implemented in the couple space phase."
-    />
+    <Stack spacing={3}>
+      <Typography variant="h5" sx={{ textAlign: "center" }}>
+        Create your couple space
+      </Typography>
+      <CreateCoupleSpaceForm />
+    </Stack>
   );
 }
