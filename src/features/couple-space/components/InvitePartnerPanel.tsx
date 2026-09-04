@@ -4,7 +4,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { AppAlert } from "@/components/feedback/AppAlert";
@@ -79,6 +79,15 @@ export function InvitePartnerPanel() {
           Waiting for your partner to join…
         </Typography>
       </Stack>
+
+      <Typography
+        component={RouterLink}
+        to={ROUTES.home}
+        variant="body2"
+        color="primary.main"
+      >
+        Continue to your space
+      </Typography>
     </Stack>
   );
 }

@@ -4,6 +4,18 @@ import { colors } from "./colors";
 import { radius } from "./spacing";
 
 export const components: ThemeOptions["components"] = {
+  MuiCssBaseline: {
+    styleOverrides: {
+      "html, body, #root": {
+        maxWidth: "100%",
+        overflowX: "hidden",
+        // A percentage height chain (rather than 100vh) tracks the actual
+        // visible viewport as mobile browser toolbars show/hide, so fixed
+        // bottom navigation doesn't end up positioned off-screen.
+        height: "100%",
+      },
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: {

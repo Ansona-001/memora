@@ -11,11 +11,24 @@ export function AppLayout() {
   const isDesktop = useIsDesktop();
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", minHeight: "100%" }}>
       {isDesktop ? <DesktopSidebar /> : null}
-      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+          minWidth: 0,
+        }}
+      >
         {!isDesktop ? <AppHeader /> : null}
-        <Box sx={{ flexGrow: 1, pb: isDesktop ? 0 : 8 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            minWidth: 0,
+            pb: isDesktop ? 0 : "calc(72px + env(safe-area-inset-bottom, 0px))",
+          }}
+        >
           <Outlet />
         </Box>
         {!isDesktop ? <BottomNavigation /> : null}

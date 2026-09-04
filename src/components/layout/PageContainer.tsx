@@ -12,6 +12,8 @@ export function PageContainer({ children }: PageContainerProps) {
       sx={{
         maxWidth: "1400px",
         width: "100%",
+        minWidth: 0,
+        boxSizing: "border-box",
         mx: "auto",
         px: { xs: 2, md: 4 },
         py: { xs: 2, md: 3 },

@@ -160,6 +160,75 @@ export type Database = {
           },
         ];
       };
+      memories: {
+        Row: {
+          captured_at: string;
+          couple_space_id: string;
+          created_at: string;
+          created_by: string;
+          duration_seconds: number | null;
+          file_size_bytes: number;
+          height: number | null;
+          id: string;
+          is_favorite: boolean;
+          media_type: string;
+          storage_path: string;
+          thumbnail_path: string;
+          title: string | null;
+          updated_at: string;
+          width: number | null;
+        };
+        Insert: {
+          captured_at?: string;
+          couple_space_id: string;
+          created_at?: string;
+          created_by: string;
+          duration_seconds?: number | null;
+          file_size_bytes: number;
+          height?: number | null;
+          id?: string;
+          is_favorite?: boolean;
+          media_type: string;
+          storage_path: string;
+          thumbnail_path: string;
+          title?: string | null;
+          updated_at?: string;
+          width?: number | null;
+        };
+        Update: {
+          captured_at?: string;
+          couple_space_id?: string;
+          created_at?: string;
+          created_by?: string;
+          duration_seconds?: number | null;
+          file_size_bytes?: number;
+          height?: number | null;
+          id?: string;
+          is_favorite?: boolean;
+          media_type?: string;
+          storage_path?: string;
+          thumbnail_path?: string;
+          title?: string | null;
+          updated_at?: string;
+          width?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "memories_couple_space_id_fkey";
+            columns: ["couple_space_id"];
+            isOneToOne: false;
+            referencedRelation: "couple_spaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "memories_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;

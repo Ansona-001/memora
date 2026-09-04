@@ -9,7 +9,7 @@ export function SplashPage() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
+        minHeight: "100%",
         gap: 2,
       }}
     >
