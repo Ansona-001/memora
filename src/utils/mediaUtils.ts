@@ -1,4 +1,23 @@
 import imageCompression from "browser-image-compression";
+import { parse as parseExif } from "exifr";
+
+/**
+ * Reads the original capture date from a photo's EXIF metadata (the
+ * DateTimeOriginal/CreateDate tags most cameras and phones write). Must be
+ * called on the original file before compression, which strips EXIF data.
+ * Returns null for formats without EXIF (PNG, most WEBP) or photos with no
+ * embedded date (screenshots, edited images), so callers can fall back to
+ * upload time.
+ */
+export async function getPhotoCapturedAt(file: File): Promise<Date | null> {
+  try {
+    const exifData = await parseExif(file, ["DateTimeOriginal", "CreateDate"]);
+    const capturedAt = exifData?.DateTimeOriginal ?? exifData?.CreateDate;
+    return capturedAt instanceof Date ? capturedAt : null;
+  } catch {
+    return null;
+  }
+}
 
 export async function compressImageFile(file: File): Promise<File> {
   return imageCompression(file, {
@@ -73,17 +92,25 @@ export function generateVideoThumbnail(file: File): Promise<Blob> {
   return new Promise((resolve, reject) => {
     const objectUrl = URL.createObjectURL(file);
     const video = document.createElement("video");
-    video.preload = "metadata";
+    video.preload = "auto";
     video.muted = true;
     video.playsInline = true;
+    // Some browsers only reliably decode/paint frames for video elements
+    // that are actually in the document, not just constructed in memory.
+    // Position it off-screen rather than display:none, which can also
+    // suppress rendering.
+    video.style.position = "fixed";
+    video.style.left = "-9999px";
+    video.style.width = "1px";
+    video.style.height = "1px";
+    document.body.appendChild(video);
 
-    const cleanup = () => URL.revokeObjectURL(objectUrl);
-
-    video.onloadedmetadata = () => {
-      video.currentTime = Math.min(1, video.duration / 2);
+    const cleanup = () => {
+      URL.revokeObjectURL(objectUrl);
+      video.remove();
     };
 
-    video.onseeked = () => {
+    const captureFrame = () => {
       const canvas = document.createElement("canvas");
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -108,6 +135,18 @@ export function generateVideoThumbnail(file: File): Promise<Blob> {
         "image/webp",
         0.85,
       );
+    };
+
+    video.onloadedmetadata = () => {
+      video.currentTime = Math.min(1, video.duration / 2);
+    };
+
+    video.onseeked = () => {
+      // The 'seeked' event can fire slightly before the browser has
+      // actually decoded and painted that frame, which produces a blank
+      // canvas capture. A couple of animation-frame ticks reliably waits
+      // for the real pixel data to be ready.
+      requestAnimationFrame(() => requestAnimationFrame(captureFrame));
     };
 
     video.onerror = () => {

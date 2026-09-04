@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 
 import { queryKeys } from "@/config/queryKeys";
 
-import { getMockHomeFeed } from "../api/mockHomeFeed";
+import { getHomeFeed } from "../api/getHomeFeed";
 
 export function useHomeFeed(coupleSpaceId: string | undefined) {
   return useQuery({
     queryKey: queryKeys.home.feed(coupleSpaceId ?? ""),
-    queryFn: () => getMockHomeFeed(coupleSpaceId!),
+    queryFn: () => getHomeFeed(coupleSpaceId!),
     enabled: Boolean(coupleSpaceId),
   });
 }

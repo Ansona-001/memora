@@ -34,6 +34,54 @@ export type Database = {
   };
   public: {
     Tables: {
+      albums: {
+        Row: {
+          couple_space_id: string;
+          cover_path: string | null;
+          created_at: string;
+          created_by: string;
+          description: string | null;
+          id: string;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          couple_space_id: string;
+          cover_path?: string | null;
+          created_at?: string;
+          created_by: string;
+          description?: string | null;
+          id?: string;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          couple_space_id?: string;
+          cover_path?: string | null;
+          created_at?: string;
+          created_by?: string;
+          description?: string | null;
+          id?: string;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "albums_couple_space_id_fkey";
+            columns: ["couple_space_id"];
+            isOneToOne: false;
+            referencedRelation: "couple_spaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "albums_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       couple_invitations: {
         Row: {
           code: string;
@@ -162,6 +210,7 @@ export type Database = {
       };
       memories: {
         Row: {
+          album_id: string | null;
           captured_at: string;
           couple_space_id: string;
           created_at: string;
@@ -179,6 +228,7 @@ export type Database = {
           width: number | null;
         };
         Insert: {
+          album_id?: string | null;
           captured_at?: string;
           couple_space_id: string;
           created_at?: string;
@@ -196,6 +246,7 @@ export type Database = {
           width?: number | null;
         };
         Update: {
+          album_id?: string | null;
           captured_at?: string;
           couple_space_id?: string;
           created_at?: string;
@@ -213,6 +264,13 @@ export type Database = {
           width?: number | null;
         };
         Relationships: [
+          {
+            foreignKeyName: "memories_album_id_fkey";
+            columns: ["album_id"];
+            isOneToOne: false;
+            referencedRelation: "albums";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "memories_couple_space_id_fkey";
             columns: ["couple_space_id"];

@@ -34,6 +34,9 @@ importers:
       dayjs:
         specifier: ^1.11.23
         version: 1.11.23
+      exifr:
+        specifier: ^7.1.3
+        version: 7.1.3
       framer-motion:
         specifier: ^13.2.0
         version: 13.2.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -3127,6 +3130,12 @@ packages:
         integrity: sha512-lW6is4T1NFOYnmqGZIfvixqj7A7sSvScF+DN8EK6K58xI5MZ5UvYe0GjopxOXQtZvUn4eDdVuZ8XSoYWTMEKwA==,
       }
     engines: { node: ">=20" }
+
+  exifr@7.1.3:
+    resolution:
+      {
+        integrity: sha512-g/aje2noHivrRSLbAUtBPWFbxKdKhgj/xr1vATDdUXPOFYJlQ62Ft0oy+72V6XLIpDJfHs6gXLbBLAolqOXYRw==,
+      }
 
   expect-type@1.4.0:
     resolution:
@@ -7552,6 +7561,8 @@ snapshots:
   esutils@2.0.3: {}
 
   eta@4.6.0: {}
+
+  exifr@7.1.3: {}
 
   expect-type@1.4.0: {}
 

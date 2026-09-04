@@ -15,6 +15,7 @@ interface MediaThumbnailProps {
   accentIndex: number;
   mediaType?: "photo" | "video";
   aspectRatio?: string;
+  imageUrl?: string | null;
   children?: ReactNode;
 }
 
@@ -22,6 +23,7 @@ export function MediaThumbnail({
   accentIndex,
   mediaType,
   aspectRatio = "16 / 10",
+  imageUrl,
   children,
 }: MediaThumbnailProps) {
   const gradient = ACCENT_GRADIENTS[accentIndex % ACCENT_GRADIENTS.length];
@@ -40,9 +42,24 @@ export function MediaThumbnail({
         justifyContent: "center",
       }}
     >
+      {imageUrl ? (
+        <Box
+          component="img"
+          src={imageUrl}
+          alt=""
+          sx={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      ) : null}
       {mediaType === "video" ? (
         <Box
           sx={{
+            position: "relative",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

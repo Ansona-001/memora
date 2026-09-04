@@ -15,6 +15,8 @@ export const queryKeys = {
       [...queryKeys.albums.all, "list", coupleSpaceId] as const,
     details: (albumId: string) =>
       [...queryKeys.albums.all, "details", albumId] as const,
+    memories: (albumId: string) =>
+      [...queryKeys.albums.all, "memories", albumId] as const,
   },
 
   memories: {
@@ -25,6 +27,8 @@ export const queryKeys = {
       [...queryKeys.memories.all, "favorite", coupleSpaceId] as const,
     details: (memoryId: string) =>
       [...queryKeys.memories.all, "details", memoryId] as const,
+    unassigned: (coupleSpaceId: string) =>
+      [...queryKeys.memories.all, "unassigned", coupleSpaceId] as const,
   },
 
   home: {

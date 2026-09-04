@@ -2,10 +2,10 @@ import Box from "@mui/material/Box";
 import Skeleton from "@mui/material/Skeleton";
 
 import { FeaturedMemoryCard } from "@/components/cards/FeaturedMemoryCard";
-import type { HomeFeaturedMemory } from "../types/homeFeed";
+import type { Memory } from "@/types/media";
 
 interface FeaturedMemoryProps {
-  memory: HomeFeaturedMemory | null | undefined;
+  memory: Memory | null | undefined;
   isLoading: boolean;
 }
 

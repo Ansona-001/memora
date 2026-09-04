@@ -2,12 +2,12 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 
-import { AlbumCard } from "@/components/cards/AlbumCard";
-import { MediaCard } from "@/components/cards/MediaCard";
+import { MemoryCard } from "@/components/cards/MemoryCard";
 import { ErrorState } from "@/components/feedback/ErrorState";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { HorizontalMediaRow } from "@/components/media/HorizontalMediaRow";
 import { ROUTES } from "@/constants/routes";
+import { AlbumGridCard } from "@/features/albums/components/AlbumGridCard";
 import { useCoupleSpace } from "@/features/couple-space/hooks/useCoupleSpace";
 import { useProfile } from "@/features/profile/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
@@ -24,11 +24,9 @@ function isFeedEmpty(feed: ReturnType<typeof useHomeFeed>["data"]): boolean {
 
   return (
     !feed.featured &&
-    feed.continueWatching.length === 0 &&
     feed.recentMemories.length === 0 &&
     feed.favoriteMemories.length === 0 &&
-    feed.tripAlbums.length === 0 &&
-    feed.dateNightAlbums.length === 0 &&
+    feed.albums.length === 0 &&
     feed.videoMemories.length === 0 &&
     feed.historicalMemories.length === 0
   );
@@ -88,46 +86,34 @@ export function HomePage() {
           <FeaturedMemory memory={feed.data?.featured} isLoading={false} />
 
           <HorizontalMediaRow
-            title="Continue Watching"
-            items={feed.data?.continueWatching ?? []}
-            getKey={(item) => item.id}
-            renderItem={(item) => <MediaCard item={item} />}
-          />
-          <HorizontalMediaRow
             title="Recently Added"
             items={feed.data?.recentMemories ?? []}
-            getKey={(item) => item.id}
-            renderItem={(item) => <MediaCard item={item} />}
+            getKey={(memory) => memory.id}
+            renderItem={(memory) => <MemoryCard memory={memory} />}
           />
           <HorizontalMediaRow
             title="Our Favorites"
             items={feed.data?.favoriteMemories ?? []}
-            getKey={(item) => item.id}
-            renderItem={(item) => <MediaCard item={item} />}
+            getKey={(memory) => memory.id}
+            renderItem={(memory) => <MemoryCard memory={memory} />}
           />
           <HorizontalMediaRow
-            title="Trips Together"
-            items={feed.data?.tripAlbums ?? []}
+            title="Your Albums"
+            items={feed.data?.albums ?? []}
             getKey={(album) => album.id}
-            renderItem={(album) => <AlbumCard album={album} />}
-          />
-          <HorizontalMediaRow
-            title="Date Nights"
-            items={feed.data?.dateNightAlbums ?? []}
-            getKey={(album) => album.id}
-            renderItem={(album) => <AlbumCard album={album} />}
+            renderItem={(album) => <AlbumGridCard album={album} />}
           />
           <HorizontalMediaRow
             title="Videos of Us"
             items={feed.data?.videoMemories ?? []}
-            getKey={(item) => item.id}
-            renderItem={(item) => <MediaCard item={item} />}
+            getKey={(memory) => memory.id}
+            renderItem={(memory) => <MemoryCard memory={memory} />}
           />
           <HorizontalMediaRow
             title="This Time Last Year"
             items={feed.data?.historicalMemories ?? []}
-            getKey={(item) => item.id}
-            renderItem={(item) => <MediaCard item={item} />}
+            getKey={(memory) => memory.id}
+            renderItem={(memory) => <MemoryCard memory={memory} />}
           />
         </>
       )}

@@ -18,6 +18,7 @@ import {
   generatePhotoThumbnail,
   generateVideoThumbnail,
   getImageDimensions,
+  getPhotoCapturedAt,
   getVideoMetadata,
 } from "@/utils/mediaUtils";
 import {
@@ -56,6 +57,7 @@ export function useUploadQueue() {
         let width: number | null = null;
         let height: number | null = null;
         let durationSeconds: number | null = null;
+        let capturedAt: Date | null = null;
 
         if (item.mediaType === "video") {
           const metadata = await getVideoMetadata(item.file);
@@ -74,6 +76,8 @@ export function useUploadQueue() {
           const dimensions = await getImageDimensions(item.file);
           width = dimensions.width;
           height = dimensions.height;
+          // Read EXIF before compression, which strips it.
+          capturedAt = await getPhotoCapturedAt(item.file);
           mediaFile = await compressImageFile(item.file);
           thumbnailBlob = await generatePhotoThumbnail(item.file);
         }
@@ -85,6 +89,7 @@ export function useUploadQueue() {
           coupleSpace.id,
           memoryId,
           extension,
+          capturedAt ?? undefined,
         );
         const thumbnailPath = buildMemoryThumbnailPath(
           coupleSpace.id,
@@ -109,6 +114,7 @@ export function useUploadQueue() {
           height,
           duration_seconds: durationSeconds,
           title: item.title.trim() || null,
+          ...(capturedAt ? { captured_at: capturedAt.toISOString() } : {}),
         });
 
         setStatus(item.id, "success", { progress: 100 });
