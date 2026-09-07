@@ -287,6 +287,58 @@ export type Database = {
           },
         ];
       };
+      playback_progress: {
+        Row: {
+          couple_space_id: string;
+          duration_seconds: number;
+          id: string;
+          memory_id: string;
+          position_seconds: number;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          couple_space_id: string;
+          duration_seconds: number;
+          id?: string;
+          memory_id: string;
+          position_seconds: number;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          couple_space_id?: string;
+          duration_seconds?: number;
+          id?: string;
+          memory_id?: string;
+          position_seconds?: number;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "playback_progress_couple_space_id_fkey";
+            columns: ["couple_space_id"];
+            isOneToOne: false;
+            referencedRelation: "couple_spaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "playback_progress_memory_id_fkey";
+            columns: ["memory_id"];
+            isOneToOne: false;
+            referencedRelation: "memories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "playback_progress_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       profiles: {
         Row: {
           avatar_path: string | null;

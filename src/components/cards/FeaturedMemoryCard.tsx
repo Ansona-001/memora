@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
 import { MemoryThumbnail } from "@/components/media/MemoryThumbnail";
@@ -8,9 +9,14 @@ import type { Memory } from "@/types/media";
 
 interface FeaturedMemoryCardProps {
   memory: Memory;
+  contextIds?: string[];
 }
 
-export function FeaturedMemoryCard({ memory }: FeaturedMemoryCardProps) {
+export function FeaturedMemoryCard({
+  memory,
+  contextIds,
+}: FeaturedMemoryCardProps) {
+  const navigate = useNavigate();
   const capturedDate = dayjs(memory.captured_at).format("MMMM D, YYYY");
 
   return (
@@ -36,7 +42,13 @@ export function FeaturedMemoryCard({ memory }: FeaturedMemoryCardProps) {
           {capturedDate}
         </Typography>
         <Box>
-          <PrimaryButton>View memory</PrimaryButton>
+          <PrimaryButton
+            onClick={() =>
+              navigate(`/app/memories/${memory.id}`, { state: { contextIds } })
+            }
+          >
+            View memory
+          </PrimaryButton>
         </Box>
       </Box>
     </Box>

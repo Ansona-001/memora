@@ -24,6 +24,7 @@ function isFeedEmpty(feed: ReturnType<typeof useHomeFeed>["data"]): boolean {
 
   return (
     !feed.featured &&
+    feed.continueWatching.length === 0 &&
     feed.recentMemories.length === 0 &&
     feed.favoriteMemories.length === 0 &&
     feed.albums.length === 0 &&
@@ -83,19 +84,44 @@ export function HomePage() {
         <EmptyHomeState />
       ) : (
         <>
-          <FeaturedMemory memory={feed.data?.featured} isLoading={false} />
+          <FeaturedMemory
+            memory={feed.data?.featured}
+            isLoading={false}
+            contextIds={feed.data?.recentMemories.map((memory) => memory.id)}
+          />
 
+          <HorizontalMediaRow
+            title="Continue Watching"
+            items={feed.data?.continueWatching ?? []}
+            getKey={(memory) => memory.id}
+            renderItem={(memory) => (
+              <MemoryCard
+                memory={memory}
+                contextIds={feed.data?.continueWatching.map((m) => m.id)}
+              />
+            )}
+          />
           <HorizontalMediaRow
             title="Recently Added"
             items={feed.data?.recentMemories ?? []}
             getKey={(memory) => memory.id}
-            renderItem={(memory) => <MemoryCard memory={memory} />}
+            renderItem={(memory) => (
+              <MemoryCard
+                memory={memory}
+                contextIds={feed.data?.recentMemories.map((m) => m.id)}
+              />
+            )}
           />
           <HorizontalMediaRow
             title="Our Favorites"
             items={feed.data?.favoriteMemories ?? []}
             getKey={(memory) => memory.id}
-            renderItem={(memory) => <MemoryCard memory={memory} />}
+            renderItem={(memory) => (
+              <MemoryCard
+                memory={memory}
+                contextIds={feed.data?.favoriteMemories.map((m) => m.id)}
+              />
+            )}
           />
           <HorizontalMediaRow
             title="Your Albums"
@@ -107,13 +133,23 @@ export function HomePage() {
             title="Videos of Us"
             items={feed.data?.videoMemories ?? []}
             getKey={(memory) => memory.id}
-            renderItem={(memory) => <MemoryCard memory={memory} />}
+            renderItem={(memory) => (
+              <MemoryCard
+                memory={memory}
+                contextIds={feed.data?.videoMemories.map((m) => m.id)}
+              />
+            )}
           />
           <HorizontalMediaRow
             title="This Time Last Year"
             items={feed.data?.historicalMemories ?? []}
             getKey={(memory) => memory.id}
-            renderItem={(memory) => <MemoryCard memory={memory} />}
+            renderItem={(memory) => (
+              <MemoryCard
+                memory={memory}
+                contextIds={feed.data?.historicalMemories.map((m) => m.id)}
+              />
+            )}
           />
         </>
       )}

@@ -7,9 +7,14 @@ import type { Memory } from "@/types/media";
 interface FeaturedMemoryProps {
   memory: Memory | null | undefined;
   isLoading: boolean;
+  contextIds?: string[];
 }
 
-export function FeaturedMemory({ memory, isLoading }: FeaturedMemoryProps) {
+export function FeaturedMemory({
+  memory,
+  isLoading,
+  contextIds,
+}: FeaturedMemoryProps) {
   if (isLoading) {
     return (
       <Skeleton
@@ -25,7 +30,7 @@ export function FeaturedMemory({ memory, isLoading }: FeaturedMemoryProps) {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <FeaturedMemoryCard memory={memory} />
+      <FeaturedMemoryCard memory={memory} contextIds={contextIds} />
     </Box>
   );
 }

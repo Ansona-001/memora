@@ -216,7 +216,7 @@ export const routes: RouteObject[] = [
               {
                 path: "/app/memories/:memoryId",
                 element: withSuspense(() =>
-                  import("@/features/memories/pages/MemoryDetailsPage").then(
+                  import("@/features/media-viewer/pages/MemoryDetailsPage").then(
                     (m) => ({ default: m.MemoryDetailsPage }),
                   ),
                 ),

@@ -1,7 +1,10 @@
-import type { Tables, TablesInsert } from "@/types/database";
+import type { Tables, TablesInsert, TablesUpdate } from "@/types/database";
 
 export type Memory = Tables<"memories">;
 export type MemoryInsert = TablesInsert<"memories">;
+export type MemoryUpdate = TablesUpdate<"memories">;
+
+export type PlaybackProgress = Tables<"playback_progress">;
 
 export type UploadStatus =
   "queued" | "processing" | "uploading" | "success" | "error";

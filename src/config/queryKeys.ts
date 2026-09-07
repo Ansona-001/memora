@@ -29,6 +29,14 @@ export const queryKeys = {
       [...queryKeys.memories.all, "details", memoryId] as const,
     unassigned: (coupleSpaceId: string) =>
       [...queryKeys.memories.all, "unassigned", coupleSpaceId] as const,
+    context: (coupleSpaceId: string) =>
+      [...queryKeys.memories.all, "context", coupleSpaceId] as const,
+  },
+
+  playbackProgress: {
+    all: ["playback-progress"] as const,
+    memory: (memoryId: string, userId: string) =>
+      [...queryKeys.playbackProgress.all, memoryId, userId] as const,
   },
 
   home: {
