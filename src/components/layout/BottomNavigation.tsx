@@ -3,8 +3,40 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { UserAvatar } from "@/components/media/UserAvatar";
 import { ROUTES } from "@/constants/routes";
 import { primaryNavigation } from "@/config/navigation";
+import { useProfile } from "@/features/profile/hooks/useProfile";
+
+function NavIcon({
+  path,
+  Icon,
+  isActive,
+}: {
+  path: string;
+  Icon: (typeof primaryNavigation)[number]["icon"];
+  isActive: boolean;
+}) {
+  const { data: profile } = useProfile();
+
+  if (path === ROUTES.profile && profile) {
+    return (
+      <UserAvatar
+        avatarPath={profile.avatar_path}
+        displayName={profile.display_name}
+        sx={{
+          width: 22,
+          height: 22,
+          fontSize: 12,
+          border: isActive ? 1.5 : 0,
+          borderColor: "primary.main",
+        }}
+      />
+    );
+  }
+
+  return <Icon fontSize="small" />;
+}
 
 export function BottomNavigation() {
   const location = useLocation();
@@ -57,7 +89,7 @@ export function BottomNavigation() {
               cursor: "pointer",
             }}
           >
-            <Icon fontSize="small" />
+            <NavIcon path={path} Icon={Icon} isActive={isActive} />
             <Typography variant="caption">{label}</Typography>
           </Box>
         );
@@ -107,7 +139,7 @@ export function BottomNavigation() {
               cursor: "pointer",
             }}
           >
-            <Icon fontSize="small" />
+            <NavIcon path={path} Icon={Icon} isActive={isActive} />
             <Typography variant="caption">{label}</Typography>
           </Box>
         );

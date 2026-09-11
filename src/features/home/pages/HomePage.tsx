@@ -6,6 +6,7 @@ import { MemoryCard } from "@/components/cards/MemoryCard";
 import { ErrorState } from "@/components/feedback/ErrorState";
 import { PageContainer } from "@/components/layout/PageContainer";
 import { HorizontalMediaRow } from "@/components/media/HorizontalMediaRow";
+import { UserAvatar } from "@/components/media/UserAvatar";
 import { ROUTES } from "@/constants/routes";
 import { AlbumGridCard } from "@/features/albums/components/AlbumGridCard";
 import { useCoupleSpace } from "@/features/couple-space/hooks/useCoupleSpace";
@@ -39,34 +40,57 @@ export function HomePage() {
   const { user } = useAuth();
   const feed = useHomeFeed(coupleSpace?.id);
 
-  const partnerName = coupleSpace?.members.find(
+  const partnerProfile = coupleSpace?.members.find(
     (member) => member.userId !== user?.id,
-  )?.profile?.display_name;
+  )?.profile;
+  const partnerName = partnerProfile?.display_name;
 
   return (
     <PageContainer>
-      <Stack spacing={0.5} sx={{ mb: 3 }}>
-        <Typography variant="h5">
-          {profile ? `Welcome back, ${profile.display_name}` : "Welcome back"}
-        </Typography>
-        {partnerName ? (
-          <Typography variant="body2" color="text.secondary">
-            {coupleSpace?.name} · Shared with {partnerName}
+      <Stack direction="row" spacing={1.5} sx={{ alignItems: "center", mb: 3 }}>
+        {profile ? (
+          <UserAvatar
+            avatarPath={profile.avatar_path}
+            displayName={profile.display_name}
+            sx={{ width: 44, height: 44 }}
+          />
+        ) : null}
+        {partnerProfile ? (
+          <UserAvatar
+            avatarPath={partnerProfile.avatar_path}
+            displayName={partnerProfile.display_name}
+            sx={{
+              width: 44,
+              height: 44,
+              ml: -2.5,
+              border: 2,
+              borderColor: "background.default",
+            }}
+          />
+        ) : null}
+        <Stack spacing={0.5}>
+          <Typography variant="h5">
+            {profile ? `Welcome back, ${profile.display_name}` : "Welcome back"}
           </Typography>
-        ) : (
-          <Typography variant="body2" color="text.secondary">
-            {coupleSpace?.name} · Waiting for your partner to join —{" "}
-            <Typography
-              component={RouterLink}
-              to={ROUTES.coupleInvite}
-              variant="body2"
-              color="primary.main"
-              sx={{ display: "inline" }}
-            >
-              share your invite code
+          {partnerName ? (
+            <Typography variant="body2" color="text.secondary">
+              {coupleSpace?.name} · Shared with {partnerName}
             </Typography>
-          </Typography>
-        )}
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              {coupleSpace?.name} · Waiting for your partner to join —{" "}
+              <Typography
+                component={RouterLink}
+                to={ROUTES.coupleInvite}
+                variant="body2"
+                color="primary.main"
+                sx={{ display: "inline" }}
+              >
+                share your invite code
+              </Typography>
+            </Typography>
+          )}
+        </Stack>
       </Stack>
 
       {feed.isPending ? (

@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import type { Profile, ProfileUpdate } from "@/types/profile";
+import { buildAvatarPath } from "@/utils/storagePaths";
 
 export async function getCurrentProfile(
   userId: string,
@@ -15,6 +16,23 @@ export async function getCurrentProfile(
   }
 
   return data;
+}
+
+export async function uploadAvatar(
+  userId: string,
+  image: Blob,
+): Promise<string> {
+  const path = buildAvatarPath(userId);
+
+  const { error } = await supabase.storage
+    .from("avatars")
+    .upload(path, image, { contentType: "image/webp", upsert: true });
+
+  if (error) {
+    throw error;
+  }
+
+  return path;
 }
 
 export async function updateProfile(

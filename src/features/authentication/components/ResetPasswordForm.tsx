@@ -13,7 +13,11 @@ import { getErrorMessage } from "@/utils/errorUtils";
 import { useResetPassword } from "../hooks/useResetPassword";
 import { resetPasswordSchema } from "../schemas/authSchemas";
 
-export function ResetPasswordForm() {
+interface ResetPasswordFormProps {
+  onSuccess?: () => void;
+}
+
+export function ResetPasswordForm({ onSuccess }: ResetPasswordFormProps) {
   const navigate = useNavigate();
   const methods = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
@@ -23,7 +27,14 @@ export function ResetPasswordForm() {
 
   const onSubmit = methods.handleSubmit((values) => {
     resetPassword.mutate(values, {
-      onSuccess: () => navigate(ROUTES.home, { replace: true }),
+      onSuccess: () => {
+        if (onSuccess) {
+          methods.reset();
+          onSuccess();
+        } else {
+          navigate(ROUTES.home, { replace: true });
+        }
+      },
     });
   });
 

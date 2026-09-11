@@ -221,23 +221,31 @@ export const routes: RouteObject[] = [
                   ),
                 ),
               },
-              {
-                path: ROUTES.profile,
-                element: withSuspense(() =>
-                  import("@/features/profile/pages/ProfilePage").then((m) => ({
-                    default: m.ProfilePage,
-                  })),
-                ),
-              },
-              {
-                path: ROUTES.settings,
-                element: withSuspense(() =>
-                  import("@/features/settings/pages/SettingsPage").then(
-                    (m) => ({ default: m.SettingsPage }),
-                  ),
-                ),
-              },
             ],
+          },
+        ],
+      },
+      {
+        // Profile and settings manage the account itself (password, avatar,
+        // delete account), so they must stay reachable even before a couple
+        // space exists - unlike CoupleSpaceRoute is not applied here.
+        element: createElement(AppLayout),
+        children: [
+          {
+            path: ROUTES.profile,
+            element: withSuspense(() =>
+              import("@/features/profile/pages/ProfilePage").then((m) => ({
+                default: m.ProfilePage,
+              })),
+            ),
+          },
+          {
+            path: ROUTES.settings,
+            element: withSuspense(() =>
+              import("@/features/settings/pages/SettingsPage").then((m) => ({
+                default: m.SettingsPage,
+              })),
+            ),
           },
         ],
       },

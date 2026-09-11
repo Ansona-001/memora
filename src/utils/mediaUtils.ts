@@ -37,6 +37,20 @@ export async function generatePhotoThumbnail(file: File): Promise<Blob> {
   });
 }
 
+/**
+ * Compresses an image for a small profile-style display (avatar or couple
+ * space cover) - larger than a grid thumbnail but far smaller than a full
+ * memory photo.
+ */
+export async function compressProfileImage(file: File): Promise<Blob> {
+  return imageCompression(file, {
+    maxSizeMB: 0.3,
+    maxWidthOrHeight: 512,
+    useWebWorker: true,
+    fileType: "image/webp",
+  });
+}
+
 export function getImageDimensions(
   file: File,
 ): Promise<{ width: number; height: number }> {

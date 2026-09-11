@@ -1,67 +1,161 @@
+import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
+import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 
+import { IconActionButton } from "@/components/buttons/IconActionButton";
+import { UserAvatar } from "@/components/media/UserAvatar";
+import { ROUTES } from "@/constants/routes";
 import { primaryNavigation } from "@/config/navigation";
 import { LogoutButton } from "@/features/authentication/components/LogoutButton";
+import { useProfile } from "@/features/profile/hooks/useProfile";
+import { useUiStore } from "@/stores/uiStore";
+
+const EXPANDED_WIDTH = 240;
+const COLLAPSED_WIDTH = 84;
 
 export function DesktopSidebar() {
+  const { data: profile } = useProfile();
+  const isCollapsed = useUiStore((state) => state.isSidebarCollapsed);
+  const toggleSidebar = useUiStore((state) => state.toggleSidebar);
+
   return (
     <Box
       component="nav"
       aria-label="Primary"
       sx={{
-        width: 240,
+        width: isCollapsed ? COLLAPSED_WIDTH : EXPANDED_WIDTH,
         flexShrink: 0,
         borderRight: 1,
         borderColor: "divider",
         py: 3,
-        px: 2,
+        px: isCollapsed ? 1 : 2,
         display: "flex",
         flexDirection: "column",
+        position: "sticky",
+        top: 0,
+        height: "100vh",
+        overflowY: "auto",
+        transition: (theme) =>
+          theme.transitions.create(["width", "padding"], {
+            duration: theme.transitions.duration.shorter,
+          }),
       }}
     >
-      <Typography variant="h6" color="primary.main" sx={{ px: 1, mb: 3 }}>
-        Memora
-      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: isCollapsed ? "center" : "space-between",
+          px: 1,
+          mb: 3,
+        }}
+      >
+        {!isCollapsed ? (
+          <Typography variant="h6" color="primary.main">
+            Memora
+          </Typography>
+        ) : null}
+        <IconActionButton
+          label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          onClick={toggleSidebar}
+          size="small"
+        >
+          {isCollapsed ? (
+            <ChevronRightRoundedIcon />
+          ) : (
+            <ChevronLeftRoundedIcon />
+          )}
+        </IconActionButton>
+      </Box>
       <List>
-        {primaryNavigation.map(({ label, path, icon: Icon }) => (
-          <ListItemButton
-            key={path}
-            component={NavLink}
-            to={path}
-            sx={{
-              borderRadius: 2,
-              mb: 0.5,
-              "&.active": {
-                backgroundColor: "action.selected",
-                color: "primary.main",
-              },
-            }}
-          >
-            <ListItemIcon sx={{ minWidth: 40 }}>
-              <Icon />
-            </ListItemIcon>
-            <ListItemText primary={label} />
-          </ListItemButton>
-        ))}
+        {primaryNavigation.map(({ label, path, icon: Icon }) => {
+          const item = (
+            <ListItemButton
+              key={path}
+              component={NavLink}
+              to={path}
+              sx={{
+                borderRadius: 2,
+                mb: 0.5,
+                justifyContent: isCollapsed ? "center" : "flex-start",
+                px: isCollapsed ? 1.5 : 2,
+                "&.active": {
+                  backgroundColor: "action.selected",
+                  color: "primary.main",
+                },
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: isCollapsed ? 0 : 40,
+                  justifyContent: "center",
+                }}
+              >
+                {path === ROUTES.profile && profile ? (
+                  <UserAvatar
+                    avatarPath={profile.avatar_path}
+                    displayName={profile.display_name}
+                    sx={{ width: 24, height: 24, fontSize: 13 }}
+                  />
+                ) : (
+                  <Icon />
+                )}
+              </ListItemIcon>
+              {!isCollapsed ? <ListItemText primary={label} /> : null}
+            </ListItemButton>
+          );
+
+          return isCollapsed ? (
+            <Tooltip key={path} title={label} placement="right">
+              {item}
+            </Tooltip>
+          ) : (
+            item
+          );
+        })}
       </List>
       <Box
         sx={{
           mt: "auto",
           display: "flex",
+          flexDirection: isCollapsed ? "column" : "row",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: isCollapsed ? "center" : "space-between",
+          gap: isCollapsed ? 1.5 : 0,
           px: 1,
         }}
       >
-        <Typography variant="body2" color="text.secondary">
-          Account
-        </Typography>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 1, minWidth: 0 }}
+        >
+          {profile ? (
+            <UserAvatar
+              avatarPath={profile.avatar_path}
+              displayName={profile.display_name}
+              sx={{ width: 28, height: 28, fontSize: 13 }}
+            />
+          ) : null}
+          {!isCollapsed ? (
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {profile?.display_name ?? "Account"}
+            </Typography>
+          ) : null}
+        </Box>
         <LogoutButton />
       </Box>
     </Box>

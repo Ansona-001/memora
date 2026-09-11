@@ -11,3 +11,5 @@ export interface CreateCoupleSpaceFormValues {
 export interface JoinCoupleSpaceFormValues {
   code: string;
 }
+
+export type UpdateCoupleSpaceFormValues = CreateCoupleSpaceFormValues;

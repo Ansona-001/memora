@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import type { Profile } from "@/types/profile";
+import { buildCoupleCoverPath } from "@/utils/storagePaths";
 
 export interface CoupleMemberWithProfile {
   userId: string;
@@ -99,4 +100,47 @@ export async function createCoupleInvitation(coupleSpaceId: string) {
   }
 
   return data;
+}
+
+export async function updateCoupleSpace(
+  coupleSpaceId: string,
+  updates: { name?: string; cover_path?: string | null },
+) {
+  const { data, error } = await supabase
+    .from("couple_spaces")
+    .update(updates)
+    .eq("id", coupleSpaceId)
+    .select()
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+export async function uploadCoupleCover(
+  coupleSpaceId: string,
+  image: Blob,
+): Promise<string> {
+  const path = buildCoupleCoverPath(coupleSpaceId);
+
+  const { error } = await supabase.storage
+    .from("couple-covers")
+    .upload(path, image, { contentType: "image/webp", upsert: true });
+
+  if (error) {
+    throw error;
+  }
+
+  return path;
+}
+
+export async function leaveCoupleSpace() {
+  const { error } = await supabase.rpc("leave_couple_space");
+
+  if (error) {
+    throw error;
+  }
 }

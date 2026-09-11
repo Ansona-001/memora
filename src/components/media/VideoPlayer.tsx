@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import { useEffect, useRef } from "react";
 
+import { useUiStore } from "@/stores/uiStore";
+
 interface VideoPlayerProps {
   src: string;
   startTimeSeconds?: number;
@@ -16,6 +18,7 @@ export function VideoPlayer({
 }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const onProgressRef = useRef(onProgress);
+  const autoplayVideos = useUiStore((state) => state.autoplayVideos);
 
   useEffect(() => {
     onProgressRef.current = onProgress;
@@ -71,7 +74,7 @@ export function VideoPlayer({
         ref={videoRef}
         src={src}
         controls
-        autoPlay
+        autoPlay={autoplayVideos}
         sx={{ maxWidth: "100%", maxHeight: "100%" }}
       />
     </Box>

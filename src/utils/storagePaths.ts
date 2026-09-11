@@ -16,3 +16,11 @@ export function buildMemoryThumbnailPath(
 ): string {
   return `${coupleSpaceId}/${memoryId}.webp`;
 }
+
+export function buildAvatarPath(userId: string): string {
+  return `${userId}/avatar.webp`;
+}
+
+export function buildCoupleCoverPath(coupleSpaceId: string): string {
+  return `${coupleSpaceId}/cover.webp`;
+}

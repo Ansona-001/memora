@@ -39,7 +39,7 @@ export type Database = {
           couple_space_id: string;
           cover_path: string | null;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           description: string | null;
           id: string;
           title: string;
@@ -49,7 +49,7 @@ export type Database = {
           couple_space_id: string;
           cover_path?: string | null;
           created_at?: string;
-          created_by: string;
+          created_by?: string | null;
           description?: string | null;
           id?: string;
           title: string;
@@ -59,7 +59,7 @@ export type Database = {
           couple_space_id?: string;
           cover_path?: string | null;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           description?: string | null;
           id?: string;
           title?: string;
@@ -177,7 +177,7 @@ export type Database = {
         Row: {
           cover_path: string | null;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           name: string;
           updated_at: string;
@@ -185,7 +185,7 @@ export type Database = {
         Insert: {
           cover_path?: string | null;
           created_at?: string;
-          created_by: string;
+          created_by?: string | null;
           id?: string;
           name?: string;
           updated_at?: string;
@@ -193,7 +193,7 @@ export type Database = {
         Update: {
           cover_path?: string | null;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           id?: string;
           name?: string;
           updated_at?: string;
@@ -214,7 +214,7 @@ export type Database = {
           captured_at: string;
           couple_space_id: string;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           duration_seconds: number | null;
           file_size_bytes: number;
           height: number | null;
@@ -232,7 +232,7 @@ export type Database = {
           captured_at?: string;
           couple_space_id: string;
           created_at?: string;
-          created_by: string;
+          created_by?: string | null;
           duration_seconds?: number | null;
           file_size_bytes: number;
           height?: number | null;
@@ -250,7 +250,7 @@ export type Database = {
           captured_at?: string;
           couple_space_id?: string;
           created_at?: string;
-          created_by?: string;
+          created_by?: string | null;
           duration_seconds?: number | null;
           file_size_bytes?: number;
           height?: number | null;
@@ -392,7 +392,7 @@ export type Database = {
         Returns: {
           cover_path: string | null;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           name: string;
           updated_at: string;
@@ -404,6 +404,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      delete_own_account: { Args: never; Returns: undefined };
       get_couple_space_years: {
         Args: { p_couple_space_id: string };
         Returns: {
@@ -414,12 +415,13 @@ export type Database = {
         Args: { p_couple_space_id: string };
         Returns: boolean;
       };
+      is_couple_partner_of: { Args: { p_user_id: string }; Returns: boolean };
       join_couple_space: {
         Args: { p_code: string };
         Returns: {
           cover_path: string | null;
           created_at: string;
-          created_by: string;
+          created_by: string | null;
           id: string;
           name: string;
           updated_at: string;
@@ -431,6 +433,7 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      leave_couple_space: { Args: never; Returns: undefined };
     };
     Enums: {
       [_ in never]: never;
