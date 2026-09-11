@@ -404,6 +404,12 @@ export type Database = {
           isSetofReturn: false;
         };
       };
+      get_couple_space_years: {
+        Args: { p_couple_space_id: string };
+        Returns: {
+          year: number;
+        }[];
+      };
       is_couple_member: {
         Args: { p_couple_space_id: string };
         Returns: boolean;
