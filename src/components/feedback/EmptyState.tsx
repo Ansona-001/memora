@@ -7,6 +7,11 @@ interface EmptyStateProps {
   description?: string;
   icon?: ReactNode;
   action?: ReactNode;
+  /**
+   * Heading level for the title element. Defaults to "h2" since this is
+   * typically the primary content beneath a page's own h1.
+   */
+  level?: "h1" | "h2" | "h3";
 }
 
 export function EmptyState({
@@ -14,6 +19,7 @@ export function EmptyState({
   description,
   icon,
   action,
+  level = "h2",
 }: EmptyStateProps) {
   return (
     <Box
@@ -29,13 +35,13 @@ export function EmptyState({
       }}
     >
       {icon}
-      <Typography variant="h6" color="text.primary">
+      <Typography variant="h6" component={level} color="textPrimary">
         {title}
       </Typography>
       {description ? (
         <Typography
           variant="body2"
-          color="text.secondary"
+          color="textSecondary"
           sx={{ maxWidth: 360 }}
         >
           {description}

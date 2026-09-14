@@ -42,13 +42,15 @@ export function AlbumHeader({
       </Box>
 
       <Stack spacing={1.5} sx={{ flexGrow: 1, minWidth: 0 }}>
-        <Typography variant="h4">{album.title}</Typography>
+        <Typography variant="h4" component="h1">
+          {album.title}
+        </Typography>
         {album.description ? (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="textSecondary">
             {album.description}
           </Typography>
         ) : null}
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="textSecondary">
           {memoryCount} {memoryCount === 1 ? "memory" : "memories"}
         </Typography>
 

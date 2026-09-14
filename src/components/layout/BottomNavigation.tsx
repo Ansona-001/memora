@@ -85,7 +85,7 @@ export function BottomNavigation() {
               px: 1.5,
               border: "none",
               backgroundColor: "transparent",
-              color: isActive ? "primary.main" : "text.secondary",
+              color: isActive ? "primary.light" : "text.secondary",
               cursor: "pointer",
             }}
           >
@@ -135,7 +135,7 @@ export function BottomNavigation() {
               px: 1.5,
               border: "none",
               backgroundColor: "transparent",
-              color: isActive ? "primary.main" : "text.secondary",
+              color: isActive ? "primary.light" : "text.secondary",
               cursor: "pointer",
             }}
           >

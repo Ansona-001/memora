@@ -19,10 +19,10 @@ export function MemoryMetadataPanel({ memory }: MemoryMetadataPanelProps) {
 
   return (
     <Stack spacing={0.5}>
-      {memory.title ? (
-        <Typography variant="h6">{memory.title}</Typography>
-      ) : null}
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="h6" component="h1">
+        {memory.title ?? dayjs(memory.captured_at).format("MMMM D, YYYY")}
+      </Typography>
+      <Typography variant="body2" color="textSecondary">
         {details.join(" · ")}
       </Typography>
     </Stack>

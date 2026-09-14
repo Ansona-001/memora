@@ -37,6 +37,7 @@ export function UploadDropzone({ onFilesSelected }: UploadDropzoneProps) {
     <Box
       role="button"
       tabIndex={0}
+      aria-label="Choose photos or videos to upload"
       onClick={() => inputRef.current?.click()}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -69,7 +70,7 @@ export function UploadDropzone({ onFilesSelected }: UploadDropzoneProps) {
       <Typography variant="body1">
         Drag and drop photos or videos here
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="textSecondary">
         or click to browse your files
       </Typography>
       <input

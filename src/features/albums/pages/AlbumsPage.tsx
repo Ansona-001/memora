@@ -22,6 +22,7 @@ export function AlbumsPage() {
     <PageContainer>
       <SectionHeader
         title="Albums"
+        level="h1"
         action={
           <PrimaryButton
             startIcon={<AddRoundedIcon />}

@@ -76,7 +76,7 @@ export function RegisterForm() {
 
         <Typography
           variant="body2"
-          color="text.secondary"
+          color="textSecondary"
           sx={{ textAlign: "center" }}
         >
           Already have an account?{" "}
@@ -84,8 +84,7 @@ export function RegisterForm() {
             component={RouterLink}
             to={ROUTES.login}
             variant="body2"
-            color="primary.main"
-            sx={{ display: "inline" }}
+            sx={{ display: "inline", color: "primary.light" }}
           >
             Log in
           </Typography>

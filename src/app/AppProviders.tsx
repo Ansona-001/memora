@@ -10,6 +10,7 @@ import { theme } from "@/theme/theme";
 
 import { ErrorBoundary } from "./ErrorBoundary";
 import { queryClient } from "./queryClient";
+import { UpdatePrompt } from "./UpdatePrompt";
 
 function AuthSessionListener() {
   const setSession = useAuthStore((state) => state.setSession);
@@ -40,6 +41,7 @@ export function AppProviders({ children }: AppProvidersProps) {
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <UpdatePrompt />
         <QueryClientProvider client={queryClient}>
           <AuthSessionListener />
           {children}

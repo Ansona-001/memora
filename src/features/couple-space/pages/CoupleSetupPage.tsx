@@ -11,8 +11,10 @@ export function CoupleSetupPage() {
 
   return (
     <Stack spacing={3} sx={{ textAlign: "center" }}>
-      <Typography variant="h5">Set up your couple space</Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="h5" component="h1">
+        Set up your couple space
+      </Typography>
+      <Typography variant="body2" color="textSecondary">
         Create a new space or join your partner&apos;s invitation.
       </Typography>
       <PrimaryButton fullWidth onClick={() => navigate(ROUTES.coupleCreate)}>

@@ -27,7 +27,7 @@ export function SettingsPage() {
 
   return (
     <PageContainer>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography variant="h5" component="h1" sx={{ mb: 3 }}>
         Settings
       </Typography>
 

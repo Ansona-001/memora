@@ -1,6 +1,7 @@
 import ImageRoundedIcon from "@mui/icons-material/ImageRounded";
 import RemoveCircleRoundedIcon from "@mui/icons-material/RemoveCircleRounded";
 import Box from "@mui/material/Box";
+import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 import { IconActionButton } from "@/components/buttons/IconActionButton";
@@ -29,58 +30,62 @@ export function AlbumMediaGrid({
         gap: 1.5,
       }}
     >
-      {memories.map((memory) => (
-        <Box
-          key={memory.id}
-          role="button"
-          tabIndex={0}
-          onClick={() =>
-            navigate(`/app/memories/${memory.id}`, { state: { contextIds } })
-          }
-          onKeyDown={(event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              navigate(`/app/memories/${memory.id}`, {
-                state: { contextIds },
-              });
-            }
-          }}
-          sx={{ position: "relative", cursor: "pointer" }}
-        >
-          <MemoryThumbnail memory={memory} aspectRatio="1 / 1" />
-          <Box
-            sx={{
-              position: "absolute",
-              top: 4,
-              right: 4,
-              display: "flex",
-              gap: 0.5,
-            }}
-          >
-            <IconActionButton
-              label="Set as album cover"
-              size="small"
-              onClick={(event) => {
-                event.stopPropagation();
-                onSetCover(memory.thumbnail_path);
+      {memories.map((memory) => {
+        const label =
+          memory.title ??
+          `${memory.media_type === "video" ? "Video" : "Photo"} from ${dayjs(memory.captured_at).format("MMMM D, YYYY")}`;
+
+        return (
+          <Box key={memory.id} sx={{ position: "relative" }}>
+            <Box
+              role="button"
+              tabIndex={0}
+              aria-label={label}
+              onClick={() =>
+                navigate(`/app/memories/${memory.id}`, {
+                  state: { contextIds },
+                })
+              }
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  navigate(`/app/memories/${memory.id}`, {
+                    state: { contextIds },
+                  });
+                }
               }}
-              sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+              sx={{ cursor: "pointer" }}
             >
-              <ImageRoundedIcon fontSize="small" />
-            </IconActionButton>
-            <IconActionButton
-              label="Remove from album"
-              size="small"
-              onClick={(event) => {
-                event.stopPropagation();
-                onRemove(memory.id);
+              <MemoryThumbnail memory={memory} aspectRatio="1 / 1" />
+            </Box>
+            <Box
+              sx={{
+                position: "absolute",
+                top: 4,
+                right: 4,
+                display: "flex",
+                gap: 0.5,
               }}
-              sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
             >
-              <RemoveCircleRoundedIcon fontSize="small" />
-            </IconActionButton>
+              <IconActionButton
+                label="Set as album cover"
+                size="small"
+                onClick={() => onSetCover(memory.thumbnail_path)}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+              >
+                <ImageRoundedIcon fontSize="small" />
+              </IconActionButton>
+              <IconActionButton
+                label="Remove from album"
+                size="small"
+                onClick={() => onRemove(memory.id)}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+              >
+                <RemoveCircleRoundedIcon fontSize="small" />
+              </IconActionButton>
+            </Box>
           </Box>
-        </Box>
-      ))}
+        );
+      })}
     </Box>
   );
 }

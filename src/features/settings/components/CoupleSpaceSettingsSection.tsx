@@ -44,7 +44,7 @@ export function CoupleSpaceSettingsSection({
               displayName={member.profile?.display_name ?? "?"}
               sx={{ width: 48, height: 48 }}
             />
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" color="textSecondary">
               {member.profile?.display_name ?? "Unknown"}
             </Typography>
           </Stack>

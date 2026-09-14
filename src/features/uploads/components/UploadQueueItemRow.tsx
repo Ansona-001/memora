@@ -63,14 +63,14 @@ export function UploadQueueItemRow({
         </Typography>
         <Typography
           variant="caption"
-          color="text.secondary"
+          color="textSecondary"
           sx={{ display: "block", mb: 0.5 }}
         >
           {formatBytes(item.file.size)}
         </Typography>
 
         {item.status === "error" ? (
-          <Typography variant="caption" color="error.main">
+          <Typography variant="caption" color="error">
             {item.errorMessage}
           </Typography>
         ) : (

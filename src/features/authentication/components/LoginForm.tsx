@@ -50,7 +50,7 @@ export function LoginForm() {
             component={RouterLink}
             to={ROUTES.forgotPassword}
             variant="body2"
-            color="text.secondary"
+            color="textSecondary"
           >
             Forgot password?
           </Typography>
@@ -62,7 +62,7 @@ export function LoginForm() {
 
         <Typography
           variant="body2"
-          color="text.secondary"
+          color="textSecondary"
           sx={{ textAlign: "center" }}
         >
           Don&apos;t have an account?{" "}
@@ -70,8 +70,7 @@ export function LoginForm() {
             component={RouterLink}
             to={ROUTES.register}
             variant="body2"
-            color="primary.main"
-            sx={{ display: "inline" }}
+            sx={{ display: "inline", color: "primary.light" }}
           >
             Register
           </Typography>

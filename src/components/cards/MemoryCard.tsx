@@ -14,11 +14,13 @@ interface MemoryCardProps {
 
 export function MemoryCard({ memory, contextIds }: MemoryCardProps) {
   const navigate = useNavigate();
+  const label = memory.title || dayjs(memory.captured_at).format("MMM D, YYYY");
 
   return (
     <Box
       role="button"
       tabIndex={0}
+      aria-label={label}
       onClick={() =>
         navigate(`/app/memories/${memory.id}`, { state: { contextIds } })
       }
@@ -49,7 +51,7 @@ export function MemoryCard({ memory, contextIds }: MemoryCardProps) {
         ) : null}
       </Box>
       <Typography variant="body2" noWrap sx={{ mt: 1 }}>
-        {memory.title || dayjs(memory.captured_at).format("MMM D, YYYY")}
+        {label}
       </Typography>
     </Box>
   );

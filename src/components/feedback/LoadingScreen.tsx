@@ -22,7 +22,7 @@ export function LoadingScreen({ message }: LoadingScreenProps) {
     >
       <CircularProgress color="primary" />
       {message ? (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="textSecondary">
           {message}
         </Typography>
       ) : null}

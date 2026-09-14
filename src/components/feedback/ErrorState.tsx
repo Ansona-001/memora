@@ -28,10 +28,10 @@ export function ErrorState({
         px: 3,
       }}
     >
-      <Typography variant="h6" color="error.main">
+      <Typography variant="h6" color="error">
         {title}
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 360 }}>
+      <Typography variant="body2" color="textSecondary" sx={{ maxWidth: 360 }}>
         {description}
       </Typography>
       {onRetry ? (

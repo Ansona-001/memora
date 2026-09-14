@@ -23,6 +23,7 @@ export function AlbumGridCard({ album }: AlbumGridCardProps) {
     <Box
       role="button"
       tabIndex={0}
+      aria-label={album.title}
       onClick={() => navigate(`/app/albums/${album.id}`)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -39,7 +40,7 @@ export function AlbumGridCard({ album }: AlbumGridCardProps) {
       <Typography variant="body2" noWrap sx={{ mt: 1 }}>
         {album.title}
       </Typography>
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" color="textSecondary">
         {album.memoryCount} {album.memoryCount === 1 ? "memory" : "memories"}
       </Typography>
     </Box>

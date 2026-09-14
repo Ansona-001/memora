@@ -1,6 +1,7 @@
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 import { MemoryThumbnail } from "@/components/media/MemoryThumbnail";
@@ -25,6 +26,7 @@ export function TimelineMonthSection({
     <Box component="section" sx={{ mb: 4 }}>
       <Typography
         variant="h6"
+        component="h2"
         sx={{
           position: "sticky",
           top: 0,
@@ -47,6 +49,10 @@ export function TimelineMonthSection({
             key={memory.id}
             role="button"
             tabIndex={0}
+            aria-label={
+              memory.title ??
+              `${memory.media_type === "video" ? "Video" : "Photo"} from ${dayjs(memory.captured_at).format("MMMM D, YYYY")}`
+            }
             onClick={() =>
               navigate(`/app/memories/${memory.id}`, {
                 state: { contextIds },

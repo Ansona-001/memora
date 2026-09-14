@@ -13,10 +13,10 @@ export function SplashPage() {
         gap: 2,
       }}
     >
-      <Typography variant="h3" color="primary.main">
+      <Typography variant="h3" sx={{ color: "primary.light" }}>
         Memora
       </Typography>
-      <Typography variant="body1" color="text.secondary">
+      <Typography variant="body1" color="textSecondary">
         Your shared memories, always close.
       </Typography>
     </Box>

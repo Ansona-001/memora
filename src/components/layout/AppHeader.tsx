@@ -15,7 +15,11 @@ export function AppHeader() {
   return (
     <AppBar position="sticky" color="transparent" elevation={0}>
       <Toolbar>
-        <Typography variant="h6" component="span" color="primary.main">
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{ color: "primary.light" }}
+        >
           Memora
         </Typography>
         <Box sx={{ flexGrow: 1 }} />

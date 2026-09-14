@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 export function AuthLayout() {
   return (
     <Box
+      component="main"
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -14,7 +15,11 @@ export function AuthLayout() {
         px: 2,
       }}
     >
-      <Typography variant="h4" color="primary.main" sx={{ mb: 4 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        sx={{ mb: 4, color: "primary.light" }}
+      >
         Memora
       </Typography>
       <Box sx={{ width: "100%", maxWidth: 400 }}>

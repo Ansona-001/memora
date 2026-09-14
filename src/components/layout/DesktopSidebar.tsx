@@ -2,6 +2,7 @@ import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -58,7 +59,7 @@ export function DesktopSidebar() {
         }}
       >
         {!isCollapsed ? (
-          <Typography variant="h6" color="primary.main">
+          <Typography variant="h6" sx={{ color: "primary.light" }}>
             Memora
           </Typography>
         ) : null}
@@ -76,19 +77,17 @@ export function DesktopSidebar() {
       </Box>
       <List>
         {primaryNavigation.map(({ label, path, icon: Icon }) => {
-          const item = (
+          const button = (
             <ListItemButton
-              key={path}
               component={NavLink}
               to={path}
               sx={{
                 borderRadius: 2,
-                mb: 0.5,
                 justifyContent: isCollapsed ? "center" : "flex-start",
                 px: isCollapsed ? 1.5 : 2,
                 "&.active": {
                   backgroundColor: "action.selected",
-                  color: "primary.main",
+                  color: "primary.light",
                 },
               }}
             >
@@ -112,12 +111,16 @@ export function DesktopSidebar() {
             </ListItemButton>
           );
 
-          return isCollapsed ? (
-            <Tooltip key={path} title={label} placement="right">
-              {item}
-            </Tooltip>
-          ) : (
-            item
+          return (
+            <ListItem key={path} disablePadding sx={{ mb: 0.5 }}>
+              {isCollapsed ? (
+                <Tooltip title={label} placement="right">
+                  {button}
+                </Tooltip>
+              ) : (
+                button
+              )}
+            </ListItem>
           );
         })}
       </List>
@@ -145,7 +148,7 @@ export function DesktopSidebar() {
           {!isCollapsed ? (
             <Typography
               variant="body2"
-              color="text.secondary"
+              color="textSecondary"
               sx={{
                 overflow: "hidden",
                 textOverflow: "ellipsis",

@@ -69,22 +69,21 @@ export function HomePage() {
           />
         ) : null}
         <Stack spacing={0.5}>
-          <Typography variant="h5">
+          <Typography variant="h5" component="h1">
             {profile ? `Welcome back, ${profile.display_name}` : "Welcome back"}
           </Typography>
           {partnerName ? (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="textSecondary">
               {coupleSpace?.name} · Shared with {partnerName}
             </Typography>
           ) : (
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="textSecondary">
               {coupleSpace?.name} · Waiting for your partner to join —{" "}
               <Typography
                 component={RouterLink}
                 to={ROUTES.coupleInvite}
                 variant="body2"
-                color="primary.main"
-                sx={{ display: "inline" }}
+                sx={{ display: "inline", color: "primary.light" }}
               >
                 share your invite code
               </Typography>

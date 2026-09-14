@@ -93,6 +93,7 @@ export function MemoryDetailsPage() {
 
   return (
     <Box
+      component="main"
       sx={{
         position: "fixed",
         inset: 0,

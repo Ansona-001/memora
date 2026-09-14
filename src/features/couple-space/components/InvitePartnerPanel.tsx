@@ -44,8 +44,10 @@ export function InvitePartnerPanel() {
 
   return (
     <Stack spacing={3} sx={{ alignItems: "center", textAlign: "center" }}>
-      <Typography variant="h5">Invite your partner</Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="h5" component="h1">
+        Invite your partner
+      </Typography>
+      <Typography variant="body2" color="textSecondary">
         Share this code with your partner. It expires in 7 days.
       </Typography>
 
@@ -75,7 +77,7 @@ export function InvitePartnerPanel() {
 
       <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
         <CircularProgress size={16} />
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="textSecondary">
           Waiting for your partner to join…
         </Typography>
       </Stack>
@@ -84,7 +86,7 @@ export function InvitePartnerPanel() {
         component={RouterLink}
         to={ROUTES.home}
         variant="body2"
-        color="primary.main"
+        sx={{ color: "primary.light" }}
       >
         Continue to your space
       </Typography>

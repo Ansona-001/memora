@@ -40,7 +40,9 @@ export function ProfilePage() {
         direction="row"
         sx={{ alignItems: "center", justifyContent: "space-between", mb: 3 }}
       >
-        <Typography variant="h5">Your profile</Typography>
+        <Typography variant="h5" component="h1">
+          Your profile
+        </Typography>
         <IconActionButton
           label="Settings"
           onClick={() => navigate(ROUTES.settings)}
@@ -60,7 +62,7 @@ export function ProfilePage() {
         <ProfileForm displayName={profile.display_name} />
 
         <Box>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="textSecondary">
             Email
           </Typography>
           <Typography variant="body1">{user?.email}</Typography>

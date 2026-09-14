@@ -35,10 +35,10 @@ export function FeaturedMemoryCard({
           borderRadius: 2,
         }}
       >
-        <Typography variant="h4" sx={{ mb: 0.5 }}>
+        <Typography variant="h4" component="h2" sx={{ mb: 0.5 }}>
           {memory.title || `A memory from ${capturedDate}`}
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
           {capturedDate}
         </Typography>
         <Box>

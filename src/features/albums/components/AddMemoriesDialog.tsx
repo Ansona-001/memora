@@ -4,6 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import dayjs from "dayjs";
 import { useState } from "react";
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
@@ -66,6 +67,11 @@ export function AddMemoriesDialog({
                   key={memory.id}
                   role="button"
                   tabIndex={0}
+                  aria-pressed={isSelected}
+                  aria-label={
+                    memory.title ??
+                    `${memory.media_type === "video" ? "Video" : "Photo"} from ${dayjs(memory.captured_at).format("MMMM D, YYYY")}`
+                  }
                   onClick={() => toggle(memory.id)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {

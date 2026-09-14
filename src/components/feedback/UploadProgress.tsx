@@ -26,7 +26,7 @@ export function UploadProgress({ status, progress }: UploadProgressProps) {
         color={status === "error" ? "error" : "primary"}
         sx={{ borderRadius: 1, height: 6 }}
       />
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" color="textSecondary">
         {STATUS_LABELS[status]}
       </Typography>
     </Box>
