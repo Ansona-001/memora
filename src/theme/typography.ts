@@ -1,5 +1,11 @@
 import type { ThemeOptions } from "@mui/material/styles";
 
+// Used only for the "Memora" wordmark (login/splash headings, app header,
+// sidebar) — loaded via Google Fonts in index.html. Not the body font: a
+// script face reads beautifully as a one-word logotype but is far less
+// legible for UI text/paragraphs.
+export const wordmarkFontFamily = '"Dancing Script", cursive';
+
 export const typography: ThemeOptions["typography"] = {
   fontFamily: [
     "Inter",

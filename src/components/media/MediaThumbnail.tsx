@@ -2,13 +2,15 @@ import PlayArrowRoundedIcon from "@mui/icons-material/PlayArrowRounded";
 import Box from "@mui/material/Box";
 import type { ReactNode } from "react";
 
+// Same red/pink romantic family as the app logo, so placeholder thumbnails
+// read as on-brand rather than an unrelated color set.
 const ACCENT_GRADIENTS = [
-  "linear-gradient(135deg, #C92A54 0%, #6B1530 100%)",
-  "linear-gradient(135deg, #F06585 0%, #A3325A 100%)",
-  "linear-gradient(135deg, #4B2E83 0%, #1F1140 100%)",
-  "linear-gradient(135deg, #2E6F8E 0%, #143244 100%)",
-  "linear-gradient(135deg, #C9852A 0%, #6B4315 100%)",
-  "linear-gradient(135deg, #2E8E6F 0%, #143C30 100%)",
+  "linear-gradient(135deg, #FFC2D1 0%, #E11D48 100%)",
+  "linear-gradient(135deg, #FF6B9D 0%, #B91C46 100%)",
+  "linear-gradient(135deg, #FF4D6D 0%, #9F1239 100%)",
+  "linear-gradient(135deg, #E11D48 0%, #6B0F2A 100%)",
+  "linear-gradient(135deg, #FFB3C7 0%, #C81E4F 100%)",
+  "linear-gradient(135deg, #F4436C 0%, #7A1230 100%)",
 ];
 
 interface MediaThumbnailProps {

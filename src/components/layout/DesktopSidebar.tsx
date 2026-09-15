@@ -17,6 +17,7 @@ import { primaryNavigation } from "@/config/navigation";
 import { LogoutButton } from "@/features/authentication/components/LogoutButton";
 import { useProfile } from "@/features/profile/hooks/useProfile";
 import { useUiStore } from "@/stores/uiStore";
+import { wordmarkFontFamily } from "@/theme/typography";
 
 const EXPANDED_WIDTH = 240;
 const COLLAPSED_WIDTH = 84;
@@ -59,7 +60,14 @@ export function DesktopSidebar() {
         }}
       >
         {!isCollapsed ? (
-          <Typography variant="h6" sx={{ color: "primary.light" }}>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "primary.light",
+              fontFamily: wordmarkFontFamily,
+              fontSize: "1.5rem",
+            }}
+          >
             Memora
           </Typography>
         ) : null}

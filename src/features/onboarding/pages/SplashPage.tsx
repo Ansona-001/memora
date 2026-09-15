@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import { wordmarkFontFamily } from "@/theme/typography";
+
 export function SplashPage() {
   return (
     <Box
@@ -13,7 +15,14 @@ export function SplashPage() {
         gap: 2,
       }}
     >
-      <Typography variant="h3" sx={{ color: "primary.light" }}>
+      <Typography
+        variant="h3"
+        sx={{
+          color: "primary.light",
+          fontFamily: wordmarkFontFamily,
+          fontSize: "3.5rem",
+        }}
+      >
         Memora
       </Typography>
       <Typography variant="body1" color="textSecondary">

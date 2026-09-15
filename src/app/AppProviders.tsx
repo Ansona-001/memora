@@ -39,7 +39,7 @@ interface AppProvidersProps {
 export function AppProviders({ children }: AppProvidersProps) {
   return (
     <ErrorBoundary>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} defaultMode="dark">
         <CssBaseline />
         <UpdatePrompt />
         <QueryClientProvider client={queryClient}>

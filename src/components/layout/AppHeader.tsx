@@ -8,6 +8,7 @@ import { UserAvatar } from "@/components/media/UserAvatar";
 import { ROUTES } from "@/constants/routes";
 import { LogoutButton } from "@/features/authentication/components/LogoutButton";
 import { useProfile } from "@/features/profile/hooks/useProfile";
+import { wordmarkFontFamily } from "@/theme/typography";
 
 export function AppHeader() {
   const { data: profile } = useProfile();
@@ -18,7 +19,11 @@ export function AppHeader() {
         <Typography
           variant="h6"
           component="span"
-          sx={{ color: "primary.light" }}
+          sx={{
+            color: "primary.light",
+            fontFamily: wordmarkFontFamily,
+            fontSize: "1.5rem",
+          }}
         >
           Memora
         </Typography>

@@ -2,6 +2,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Outlet } from "react-router-dom";
 
+import { wordmarkFontFamily } from "@/theme/typography";
+
 export function AuthLayout() {
   return (
     <Box
@@ -18,7 +20,12 @@ export function AuthLayout() {
       <Typography
         component="h1"
         variant="h4"
-        sx={{ mb: 4, color: "primary.light" }}
+        sx={{
+          mb: 4,
+          color: "primary.light",
+          fontFamily: wordmarkFontFamily,
+          fontSize: "2.75rem",
+        }}
       >
         Memora
       </Typography>

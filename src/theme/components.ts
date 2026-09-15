@@ -1,6 +1,5 @@
 import type { ThemeOptions } from "@mui/material/styles";
 
-import { colors } from "./colors";
 import { radius } from "./spacing";
 
 export const components: ThemeOptions["components"] = {
@@ -35,11 +34,15 @@ export const components: ThemeOptions["components"] = {
   },
   MuiCard: {
     styleOverrides: {
-      root: {
-        backgroundColor: colors.background.elevated,
+      // Reference theme.vars (CSS custom properties), not a static color,
+      // so this stays correct when the active color scheme changes at
+      // runtime instead of only whatever scheme was active when the theme
+      // object was created.
+      root: ({ theme }) => ({
+        backgroundColor: (theme.vars ?? theme).palette.background.elevated,
         borderRadius: radius.lg,
-        border: `1px solid ${colors.border.subtle}`,
-      },
+        border: `1px solid ${(theme.vars ?? theme).palette.divider}`,
+      }),
     },
   },
   MuiTextField: {
@@ -49,12 +52,12 @@ export const components: ThemeOptions["components"] = {
   },
   MuiAppBar: {
     styleOverrides: {
-      root: {
-        backgroundColor: colors.background.primary,
+      root: ({ theme }) => ({
+        backgroundColor: (theme.vars ?? theme).palette.background.default,
         backgroundImage: "none",
         boxShadow: "none",
-        borderBottom: `1px solid ${colors.border.subtle}`,
-      },
+        borderBottom: `1px solid ${(theme.vars ?? theme).palette.divider}`,
+      }),
     },
   },
 };
