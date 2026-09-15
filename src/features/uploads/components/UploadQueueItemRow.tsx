@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 
 import { IconActionButton } from "@/components/buttons/IconActionButton";
 import { UploadProgress } from "@/components/feedback/UploadProgress";
+import { AiSuggestionRow } from "@/features/ai/components/AiSuggestionRow";
 import type { UploadQueueItem } from "@/types/media";
 import { formatBytes } from "@/utils/fileUtils";
 
@@ -76,6 +77,10 @@ export function UploadQueueItemRow({
         ) : (
           <UploadProgress status={item.status} progress={item.progress} />
         )}
+
+        {item.mediaType === "photo" ? (
+          <AiSuggestionRow tags={item.aiTags} status={item.aiStatus} />
+        ) : null}
       </Box>
 
       {item.status === "success" ? (

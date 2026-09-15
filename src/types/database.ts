@@ -210,6 +210,10 @@ export type Database = {
       };
       memories: {
         Row: {
+          ai_caption: string | null;
+          ai_embedding: string | null;
+          ai_model_version: string | null;
+          ai_tags: string[];
           album_id: string | null;
           captured_at: string;
           couple_space_id: string;
@@ -228,6 +232,10 @@ export type Database = {
           width: number | null;
         };
         Insert: {
+          ai_caption?: string | null;
+          ai_embedding?: number[] | null;
+          ai_model_version?: string | null;
+          ai_tags?: string[];
           album_id?: string | null;
           captured_at?: string;
           couple_space_id: string;
@@ -246,6 +254,10 @@ export type Database = {
           width?: number | null;
         };
         Update: {
+          ai_caption?: string | null;
+          ai_embedding?: number[] | null;
+          ai_model_version?: string | null;
+          ai_tags?: string[];
           album_id?: string | null;
           captured_at?: string;
           couple_space_id?: string;
@@ -434,6 +446,21 @@ export type Database = {
         };
       };
       leave_couple_space: { Args: never; Returns: undefined };
+      match_memories: {
+        Args: {
+          match_count?: number;
+          match_couple_space_id: string;
+          match_threshold?: number;
+          query_embedding: number[];
+        };
+        Returns: {
+          ai_caption: string | null;
+          ai_tags: string[];
+          id: string;
+          similarity: number;
+          title: string | null;
+        }[];
+      };
     };
     Enums: {
       [_ in never]: never;

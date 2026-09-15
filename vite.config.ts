@@ -44,6 +44,34 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff2}"],
         navigateFallbackDenylist: [/^\/api/, /storage\/v1/],
+        // Cache the free on-device AI model files after first download so
+        // captioning keeps working offline at $0 cost.
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/huggingface\.co\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "memora-ai-models",
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            urlPattern: /^https:\/\/.*\.hf\.co\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "memora-ai-models",
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
       },
     }),
   ],

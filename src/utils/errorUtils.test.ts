@@ -18,4 +18,13 @@ describe("getErrorMessage", () => {
       "Something went wrong. Please try again.",
     );
   });
+
+  it("reads Supabase-style plain object errors", () => {
+    expect(getErrorMessage({ message: "column ai_caption does not exist" })).toBe(
+      "column ai_caption does not exist",
+    );
+    expect(getErrorMessage({ message: "", error: "RLS violation" })).toBe(
+      "RLS violation",
+    );
+  });
 });

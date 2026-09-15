@@ -1,7 +1,9 @@
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 
+import { IconActionButton } from "@/components/buttons/IconActionButton";
 import { MemoryCard } from "@/components/cards/MemoryCard";
 import { ErrorState } from "@/components/feedback/ErrorState";
 import { PageContainer } from "@/components/layout/PageContainer";
@@ -90,6 +92,14 @@ export function HomePage() {
             </Typography>
           )}
         </Stack>
+        <IconActionButton
+          label="Search memories"
+          component={RouterLink}
+          to={ROUTES.search}
+          sx={{ ml: "auto" }}
+        >
+          <SearchRoundedIcon />
+        </IconActionButton>
       </Stack>
 
       {feed.isPending ? (

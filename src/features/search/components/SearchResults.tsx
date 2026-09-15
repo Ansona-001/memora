@@ -1,4 +1,6 @@
 import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 import { EmptyState } from "@/components/feedback/EmptyState";
 import { ErrorState } from "@/components/feedback/ErrorState";
@@ -6,6 +8,7 @@ import { LoadingScreen } from "@/components/feedback/LoadingScreen";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import type { AlbumWithCount } from "@/features/albums/api/getAlbums";
 import { AlbumGridCard } from "@/features/albums/components/AlbumGridCard";
+import { SUGGESTED_AI_TAGS } from "@/features/ai/config/aiConfig";
 import { TimelineMonthSection } from "@/features/timeline/components/TimelineMonthSection";
 import { groupMemoriesByDate } from "@/features/timeline/utils/groupMemoriesByDate";
 import type { Memory } from "@/types/media";
@@ -19,18 +22,37 @@ interface SearchResultsProps {
     isError: boolean;
     refetch: () => void;
   };
+  onSuggestionClick: (tag: string) => void;
 }
 
 export function SearchResults({
   query,
   albums,
   memoriesQuery,
+  onSuggestionClick,
 }: SearchResultsProps) {
   if (query.trim().length === 0) {
     return (
       <EmptyState
         title="Search your memories"
-        description="Find photos, videos, and albums by title."
+        description="Find photos, videos, and albums by title, or by what's in the photo — AI tags each one with things like the examples below."
+        action={
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            sx={{ justifyContent: "center", maxWidth: 420, flexWrap: "wrap" }}
+          >
+            {SUGGESTED_AI_TAGS.map((tag) => (
+              <Chip
+                key={tag}
+                label={tag}
+                size="small"
+                onClick={() => onSuggestionClick(tag)}
+              />
+            ))}
+          </Stack>
+        }
       />
     );
   }

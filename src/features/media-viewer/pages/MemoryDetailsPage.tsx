@@ -1,3 +1,4 @@
+import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
@@ -6,6 +7,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -14,6 +16,7 @@ import { ErrorState } from "@/components/feedback/ErrorState";
 import { LoadingScreen } from "@/components/feedback/LoadingScreen";
 import { ImageViewer } from "@/components/media/ImageViewer";
 import { VideoPlayer } from "@/components/media/VideoPlayer";
+import { useAiPreference } from "@/features/ai/hooks/useAiSuggestion";
 import { useCoupleSpace } from "@/features/couple-space/hooks/useCoupleSpace";
 import { useAuth } from "@/hooks/useAuth";
 import { useSignedUrl } from "@/hooks/useSignedUrl";
@@ -26,6 +29,7 @@ import { useDeleteMemory } from "../hooks/useDeleteMemory";
 import { useMemory } from "../hooks/useMemory";
 import { useMemoryContext } from "../hooks/useMemoryContext";
 import { usePlaybackProgress } from "../hooks/usePlaybackProgress";
+import { useRetagMemory } from "../hooks/useRetagMemory";
 import { useSavePlaybackProgress } from "../hooks/useSavePlaybackProgress";
 import { useToggleFavorite } from "../hooks/useToggleFavorite";
 import { useUpdateMemory } from "../hooks/useUpdateMemory";
@@ -53,6 +57,8 @@ export function MemoryDetailsPage() {
   const toggleFavorite = useToggleFavorite();
   const updateMemory = useUpdateMemory();
   const deleteMemory = useDeleteMemory();
+  const retagMemory = useRetagMemory();
+  const { aiEnabled } = useAiPreference();
 
   const currentIndex = contextIds.indexOf(memoryId ?? "");
   const prevId = currentIndex > 0 ? contextIds[currentIndex - 1] : null;
@@ -127,6 +133,18 @@ export function MemoryDetailsPage() {
               <FavoriteBorderRoundedIcon />
             )}
           </IconActionButton>
+          {memory.media_type === "photo" && aiEnabled ? (
+            <IconActionButton
+              label="Retag with AI"
+              disabled={!mediaUrl.data || retagMemory.isPending}
+              onClick={() =>
+                mediaUrl.data &&
+                retagMemory.mutate({ memory, mediaUrl: mediaUrl.data })
+              }
+            >
+              <AutoAwesomeRoundedIcon />
+            </IconActionButton>
+          ) : null}
           <IconActionButton label="Edit" onClick={() => setIsEditOpen(true)}>
             <EditRoundedIcon />
           </IconActionButton>
@@ -197,6 +215,15 @@ export function MemoryDetailsPage() {
 
       <Box sx={{ p: 2 }}>
         <MemoryMetadataPanel memory={memory} />
+        {retagMemory.isPending ? (
+          <Typography variant="caption" color="textSecondary">
+            Retagging with AI…
+          </Typography>
+        ) : retagMemory.isError ? (
+          <Typography variant="caption" color="error">
+            {getErrorMessage(retagMemory.error)}
+          </Typography>
+        ) : null}
       </Box>
 
       <EditMemoryDialog
@@ -211,7 +238,11 @@ export function MemoryDetailsPage() {
           updateMemory.mutate(
             {
               memoryId: memory.id,
-              updates: { title: values.title || null },
+              updates: {
+                title: values.title || null,
+                ai_caption: values.aiCaption || null,
+                ai_tags: values.aiTags ?? [],
+              },
             },
             { onSuccess: () => setIsEditOpen(false) },
           )

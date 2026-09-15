@@ -18,4 +18,11 @@ export interface UploadQueueItem {
   status: UploadStatus;
   progress: number;
   errorMessage: string | null;
+  aiTags?: string[];
+  aiEmbedding?: number[];
+  aiStatus?: AiEnrichmentStatus;
+  aiErrorMessage?: string | null;
 }
+
+export type AiEnrichmentStatus =
+  "idle" | "pending" | "processing" | "success" | "skipped" | "error";
