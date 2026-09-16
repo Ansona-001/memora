@@ -32,12 +32,6 @@ export function SettingsPage() {
       </Typography>
 
       <Stack spacing={3} sx={{ maxWidth: 560 }}>
-        <SettingsSection title="Account" description={user?.email}>
-          <ChangePasswordSection />
-          <Divider />
-          <LogoutSection />
-        </SettingsSection>
-
         {coupleSpace ? (
           <SettingsSection
             title="Couple space"
@@ -46,6 +40,10 @@ export function SettingsPage() {
             <CoupleSpaceSettingsSection coupleSpace={coupleSpace} />
           </SettingsSection>
         ) : null}
+
+        <SettingsSection title="Appearance">
+          <AppearanceSection />
+        </SettingsSection>
 
         <SettingsSection title="Privacy">
           <PrivacySection />
@@ -59,8 +57,10 @@ export function SettingsPage() {
           <CacheSection />
         </SettingsSection>
 
-        <SettingsSection title="Appearance">
-          <AppearanceSection />
+        <SettingsSection title="Account" description={user?.email}>
+          <ChangePasswordSection />
+          <Divider />
+          <LogoutSection />
         </SettingsSection>
 
         <SettingsSection
