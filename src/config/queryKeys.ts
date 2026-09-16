@@ -17,6 +17,18 @@ export const queryKeys = {
       [...queryKeys.albums.all, "details", albumId] as const,
     memories: (albumId: string) =>
       [...queryKeys.albums.all, "memories", albumId] as const,
+    comments: (albumId: string) =>
+      [...queryKeys.albums.all, "comments", albumId] as const,
+  },
+
+  publicShare: {
+    all: ["public-share"] as const,
+    coupleSpace: (slug: string) =>
+      [...queryKeys.publicShare.all, "couple-space", slug] as const,
+    album: (coupleSlug: string, albumSlug: string) =>
+      [...queryKeys.publicShare.all, "album", coupleSlug, albumSlug] as const,
+    albumMemories: (albumId: string) =>
+      [...queryKeys.publicShare.all, "album-memories", albumId] as const,
   },
 
   memories: {

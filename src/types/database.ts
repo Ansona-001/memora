@@ -34,6 +34,38 @@ export type Database = {
   };
   public: {
     Tables: {
+      album_comments: {
+        Row: {
+          album_id: string;
+          author_name: string;
+          body: string;
+          created_at: string;
+          id: string;
+        };
+        Insert: {
+          album_id: string;
+          author_name: string;
+          body: string;
+          created_at?: string;
+          id?: string;
+        };
+        Update: {
+          album_id?: string;
+          author_name?: string;
+          body?: string;
+          created_at?: string;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "album_comments_album_id_fkey";
+            columns: ["album_id"];
+            isOneToOne: false;
+            referencedRelation: "albums";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       albums: {
         Row: {
           couple_space_id: string;
@@ -42,6 +74,8 @@ export type Database = {
           created_by: string | null;
           description: string | null;
           id: string;
+          is_public: boolean;
+          slug: string;
           title: string;
           updated_at: string;
         };
@@ -52,6 +86,8 @@ export type Database = {
           created_by?: string | null;
           description?: string | null;
           id?: string;
+          is_public?: boolean;
+          slug?: string;
           title: string;
           updated_at?: string;
         };
@@ -62,6 +98,8 @@ export type Database = {
           created_by?: string | null;
           description?: string | null;
           id?: string;
+          is_public?: boolean;
+          slug?: string;
           title?: string;
           updated_at?: string;
         };
@@ -180,6 +218,7 @@ export type Database = {
           created_by: string | null;
           id: string;
           name: string;
+          public_slug: string;
           updated_at: string;
         };
         Insert: {
@@ -188,6 +227,7 @@ export type Database = {
           created_by?: string | null;
           id?: string;
           name?: string;
+          public_slug?: string;
           updated_at?: string;
         };
         Update: {
@@ -196,6 +236,7 @@ export type Database = {
           created_by?: string | null;
           id?: string;
           name?: string;
+          public_slug?: string;
           updated_at?: string;
         };
         Relationships: [

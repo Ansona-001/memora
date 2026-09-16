@@ -110,7 +110,12 @@ export function BottomNavigation() {
             borderRadius: "50%",
             border: "none",
             backgroundColor: "primary.main",
-            color: "text.primary",
+            // Not text.primary: this button's red background is the same
+            // in both color schemes, but text.primary flips from white to
+            // near-black in light mode, which would put a near-invisible
+            // dark icon on the red circle. primary.contrastText is MUI's
+            // auto-computed readable color against primary.main itself.
+            color: "primary.contrastText",
             boxShadow: 4,
             cursor: "pointer",
           }}

@@ -144,7 +144,17 @@ export function DesktopSidebar() {
         }}
       >
         <Box
-          sx={{ display: "flex", alignItems: "center", gap: 1, minWidth: 0 }}
+          component={NavLink}
+          to={ROUTES.profile}
+          aria-label="Your profile"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            minWidth: 0,
+            color: "inherit",
+            textDecoration: "none",
+          }}
         >
           {profile ? (
             <UserAvatar

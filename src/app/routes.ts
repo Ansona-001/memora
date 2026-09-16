@@ -255,6 +255,26 @@ export const routes: RouteObject[] = [
     path: "/",
     element: createElement(Navigate, { to: ROUTES.home, replace: true }),
   },
+  // Public, no-login routes for albums a couple has explicitly shared.
+  // Intentionally unguarded and outside the authenticated app shell — must
+  // stay below every static top-level path above (login, couple, app, etc.)
+  // so a share slug can never shadow a real route, and above the catch-all.
+  {
+    path: "/:coupleSlug",
+    element: withSuspense(() =>
+      import("@/features/public-share/pages/PublicCouplePage").then((m) => ({
+        default: m.PublicCouplePage,
+      })),
+    ),
+  },
+  {
+    path: "/:coupleSlug/:albumSlug",
+    element: withSuspense(() =>
+      import("@/features/public-share/pages/PublicAlbumPage").then((m) => ({
+        default: m.PublicAlbumPage,
+      })),
+    ),
+  },
   {
     path: "*",
     element: createElement(Navigate, { to: ROUTES.splash, replace: true }),

@@ -59,6 +59,7 @@ describe("CoupleSpaceRoute", () => {
       id: "space-1",
       name: "Our Space",
       coverPath: null,
+      publicSlug: "our-space",
       members: [],
     });
 

@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { PrimaryButton } from "@/components/buttons/PrimaryButton";
@@ -12,29 +13,47 @@ import { CoupleCoverUpload } from "./CoupleCoverUpload";
 import { useUpdateCoupleSpace } from "../hooks/useUpdateCoupleSpace";
 import { updateCoupleSpaceSchema } from "../schemas/coupleSpaceSchemas";
 
+function getPublicSlugErrorMessage(error: unknown): string | null {
+  const code = (error as { code?: string } | null)?.code;
+  if (code === "23505") {
+    return "That handle is already taken — try another.";
+  }
+  if (code === "23514") {
+    return "That handle isn't available — try a different one.";
+  }
+  return null;
+}
+
 interface CoupleSpaceFormProps {
   coupleSpaceId: string;
   name: string;
   coverPath: string | null;
+  publicSlug: string;
 }
 
 export function CoupleSpaceForm({
   coupleSpaceId,
   name,
   coverPath,
+  publicSlug,
 }: CoupleSpaceFormProps) {
   const methods = useForm<UpdateCoupleSpaceFormValues>({
     resolver: zodResolver(updateCoupleSpaceSchema),
-    defaultValues: { name },
+    defaultValues: { name, publicSlug },
   });
   const updateSpace = useUpdateCoupleSpace(coupleSpaceId);
 
   const onSubmit = methods.handleSubmit((values) => {
     updateSpace.mutate(
-      { name: values.name },
+      { name: values.name, public_slug: values.publicSlug },
       { onSuccess: () => methods.reset(values) },
     );
   });
+
+  const slugErrorMessage = updateSpace.isError
+    ? getPublicSlugErrorMessage(updateSpace.error) ??
+      getErrorMessage(updateSpace.error)
+    : null;
 
   return (
     <Stack spacing={2}>
@@ -43,9 +62,7 @@ export function CoupleSpaceForm({
       <FormProvider {...methods}>
         <Stack component="form" onSubmit={onSubmit} spacing={2} noValidate>
           {updateSpace.isError ? (
-            <AppAlert severity="error">
-              {getErrorMessage(updateSpace.error)}
-            </AppAlert>
+            <AppAlert severity="error">{slugErrorMessage}</AppAlert>
           ) : null}
 
           <FormTextField<UpdateCoupleSpaceFormValues>
@@ -53,6 +70,16 @@ export function CoupleSpaceForm({
             label="Space name"
             autoComplete="off"
           />
+
+          <FormTextField<UpdateCoupleSpaceFormValues>
+            name="publicSlug"
+            label="Public handle"
+            autoComplete="off"
+          />
+          <Typography variant="caption" color="textSecondary" sx={{ mt: -1.5 }}>
+            Anyone with this link can view whichever albums you've turned
+            sharing on: {window.location.origin}/{methods.watch("publicSlug")}
+          </Typography>
 
           <PrimaryButton
             type="submit"

@@ -71,7 +71,10 @@ export function MediaThumbnail({
             backgroundColor: "rgba(0, 0, 0, 0.45)",
           }}
         >
-          <PlayArrowRoundedIcon sx={{ color: "text.primary" }} />
+          {/* Not text.primary: this sits on a fixed dark scrim over the
+              thumbnail image regardless of color scheme, but text.primary
+              flips to near-black in light mode and would go invisible. */}
+          <PlayArrowRoundedIcon sx={{ color: "common.white" }} />
         </Box>
       ) : null}
       {children}

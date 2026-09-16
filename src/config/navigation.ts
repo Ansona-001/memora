@@ -2,7 +2,6 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import CollectionsRoundedIcon from "@mui/icons-material/CollectionsRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import TimelineRoundedIcon from "@mui/icons-material/TimelineRounded";
 import type { SvgIconComponent } from "@mui/icons-material";
 
@@ -20,5 +19,4 @@ export const primaryNavigation: NavigationItem[] = [
   { label: "Upload", path: ROUTES.upload, icon: AddCircleRoundedIcon },
   { label: "Timeline", path: ROUTES.timeline, icon: TimelineRoundedIcon },
   { label: "Favorites", path: ROUTES.favorites, icon: FavoriteRoundedIcon },
-  { label: "Profile", path: ROUTES.profile, icon: PersonRoundedIcon },
 ];

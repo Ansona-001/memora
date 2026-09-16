@@ -12,6 +12,7 @@ export interface CoupleSpaceWithMembers {
   id: string;
   name: string;
   coverPath: string | null;
+  publicSlug: string;
   members: CoupleMemberWithProfile[];
 }
 
@@ -58,6 +59,7 @@ export async function getCurrentCoupleSpace(
     id: space.id,
     name: space.name,
     coverPath: space.cover_path,
+    publicSlug: space.public_slug,
     members: (members ?? []).map((member) => ({
       userId: member.user_id,
       joinedAt: member.joined_at,
@@ -104,7 +106,7 @@ export async function createCoupleInvitation(coupleSpaceId: string) {
 
 export async function updateCoupleSpace(
   coupleSpaceId: string,
-  updates: { name?: string; cover_path?: string | null },
+  updates: { name?: string; cover_path?: string | null; public_slug?: string },
 ) {
   const { data, error } = await supabase
     .from("couple_spaces")

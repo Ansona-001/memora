@@ -23,4 +23,9 @@ export const ROUTES = {
   memoryDetails: (memoryId: string) => `/app/memories/${memoryId}`,
   profile: "/app/profile",
   settings: "/app/settings",
+
+  // Public, no-login routes for albums a couple has explicitly shared.
+  publicCouple: (coupleSlug: string) => `/${coupleSlug}`,
+  publicAlbum: (coupleSlug: string, albumSlug: string) =>
+    `/${coupleSlug}/${albumSlug}`,
 } as const;

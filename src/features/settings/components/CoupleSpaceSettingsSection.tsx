@@ -55,6 +55,7 @@ export function CoupleSpaceSettingsSection({
         coupleSpaceId={coupleSpace.id}
         name={coupleSpace.name}
         coverPath={coupleSpace.coverPath}
+        publicSlug={coupleSpace.publicSlug}
       />
 
       {leaveSpace.isError ? (

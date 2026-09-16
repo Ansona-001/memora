@@ -66,11 +66,16 @@ export function AlbumMediaGrid({
                 gap: 0.5,
               }}
             >
+              {/* Explicit white: these sit on a fixed dark scrim over the
+                  thumbnail regardless of color scheme. The default
+                  (unset) icon color follows theme.palette.action.active,
+                  which turns dark in light mode and would go invisible
+                  against this scrim. */}
               <IconActionButton
                 label="Set as album cover"
                 size="small"
                 onClick={() => onSetCover(memory.thumbnail_path)}
-                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)", color: "common.white" }}
               >
                 <ImageRoundedIcon fontSize="small" />
               </IconActionButton>
@@ -78,7 +83,7 @@ export function AlbumMediaGrid({
                 label="Remove from album"
                 size="small"
                 onClick={() => onRemove(memory.id)}
-                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)", color: "common.white" }}
               >
                 <RemoveCircleRoundedIcon fontSize="small" />
               </IconActionButton>

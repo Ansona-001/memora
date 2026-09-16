@@ -1,5 +1,6 @@
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import ShareRoundedIcon from "@mui/icons-material/ShareRounded";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -17,6 +18,7 @@ interface AlbumHeaderProps {
   memoryCount: number;
   onAddMemories: () => void;
   onDelete: () => void;
+  onShare: () => void;
 }
 
 export function AlbumHeader({
@@ -24,6 +26,7 @@ export function AlbumHeader({
   memoryCount,
   onAddMemories,
   onDelete,
+  onShare,
 }: AlbumHeaderProps) {
   const navigate = useNavigate();
   const { data: coverUrl } = useSignedUrl(
@@ -56,6 +59,15 @@ export function AlbumHeader({
 
         <Stack direction="row" spacing={1} sx={{ pt: 1 }}>
           <PrimaryButton onClick={onAddMemories}>Add memories</PrimaryButton>
+          <IconActionButton
+            label={album.is_public ? "Sharing is on" : "Share album"}
+            onClick={onShare}
+          >
+            <ShareRoundedIcon
+              fontSize="small"
+              color={album.is_public ? "primary" : "inherit"}
+            />
+          </IconActionButton>
           <IconActionButton
             label="Edit album"
             onClick={() => navigate(`/app/albums/${album.id}/edit`)}
