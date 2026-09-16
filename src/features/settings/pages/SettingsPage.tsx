@@ -42,7 +42,7 @@ export function SettingsPage() {
         {coupleSpace ? (
           <SettingsSection
             title="Couple space"
-            description="Rename your space, change its cover, or leave it."
+            description="Rename your space or leave it."
           >
             <CoupleSpaceSettingsSection coupleSpace={coupleSpace} />
           </SettingsSection>

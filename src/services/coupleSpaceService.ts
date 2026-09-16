@@ -1,6 +1,5 @@
 import { supabase } from "@/lib/supabase";
 import type { Profile } from "@/types/profile";
-import { buildCoupleCoverPath } from "@/utils/storagePaths";
 
 export interface CoupleMemberWithProfile {
   userId: string;
@@ -120,23 +119,6 @@ export async function updateCoupleSpace(
   }
 
   return data;
-}
-
-export async function uploadCoupleCover(
-  coupleSpaceId: string,
-  image: Blob,
-): Promise<string> {
-  const path = buildCoupleCoverPath(coupleSpaceId);
-
-  const { error } = await supabase.storage
-    .from("couple-covers")
-    .upload(path, image, { contentType: "image/webp", upsert: true });
-
-  if (error) {
-    throw error;
-  }
-
-  return path;
 }
 
 export async function leaveCoupleSpace() {

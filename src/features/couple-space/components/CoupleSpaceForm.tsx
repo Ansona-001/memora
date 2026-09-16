@@ -9,7 +9,6 @@ import { FormTextField } from "@/components/forms/FormTextField";
 import type { UpdateCoupleSpaceFormValues } from "@/types/coupleSpace";
 import { getErrorMessage } from "@/utils/errorUtils";
 
-import { CoupleCoverUpload } from "./CoupleCoverUpload";
 import { useUpdateCoupleSpace } from "../hooks/useUpdateCoupleSpace";
 import { updateCoupleSpaceSchema } from "../schemas/coupleSpaceSchemas";
 
@@ -27,14 +26,12 @@ function getPublicSlugErrorMessage(error: unknown): string | null {
 interface CoupleSpaceFormProps {
   coupleSpaceId: string;
   name: string;
-  coverPath: string | null;
   publicSlug: string;
 }
 
 export function CoupleSpaceForm({
   coupleSpaceId,
   name,
-  coverPath,
   publicSlug,
 }: CoupleSpaceFormProps) {
   const methods = useForm<UpdateCoupleSpaceFormValues>({
@@ -56,40 +53,36 @@ export function CoupleSpaceForm({
     : null;
 
   return (
-    <Stack spacing={2}>
-      <CoupleCoverUpload coupleSpaceId={coupleSpaceId} coverPath={coverPath} />
+    <FormProvider {...methods}>
+      <Stack component="form" onSubmit={onSubmit} spacing={2} noValidate>
+        {updateSpace.isError ? (
+          <AppAlert severity="error">{slugErrorMessage}</AppAlert>
+        ) : null}
 
-      <FormProvider {...methods}>
-        <Stack component="form" onSubmit={onSubmit} spacing={2} noValidate>
-          {updateSpace.isError ? (
-            <AppAlert severity="error">{slugErrorMessage}</AppAlert>
-          ) : null}
+        <FormTextField<UpdateCoupleSpaceFormValues>
+          name="name"
+          label="Space name"
+          autoComplete="off"
+        />
 
-          <FormTextField<UpdateCoupleSpaceFormValues>
-            name="name"
-            label="Space name"
-            autoComplete="off"
-          />
+        <FormTextField<UpdateCoupleSpaceFormValues>
+          name="publicSlug"
+          label="Public handle"
+          autoComplete="off"
+        />
+        <Typography variant="caption" color="textSecondary" sx={{ mt: -1.5 }}>
+          Anyone with this link can view whichever albums you've turned
+          sharing on: {window.location.origin}/{methods.watch("publicSlug")}
+        </Typography>
 
-          <FormTextField<UpdateCoupleSpaceFormValues>
-            name="publicSlug"
-            label="Public handle"
-            autoComplete="off"
-          />
-          <Typography variant="caption" color="textSecondary" sx={{ mt: -1.5 }}>
-            Anyone with this link can view whichever albums you've turned
-            sharing on: {window.location.origin}/{methods.watch("publicSlug")}
-          </Typography>
-
-          <PrimaryButton
-            type="submit"
-            isLoading={updateSpace.isPending}
-            disabled={!methods.formState.isDirty}
-          >
-            Save changes
-          </PrimaryButton>
-        </Stack>
-      </FormProvider>
-    </Stack>
+        <PrimaryButton
+          type="submit"
+          isLoading={updateSpace.isPending}
+          disabled={!methods.formState.isDirty}
+        >
+          Save changes
+        </PrimaryButton>
+      </Stack>
+    </FormProvider>
   );
 }

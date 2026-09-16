@@ -54,7 +54,6 @@ export function CoupleSpaceSettingsSection({
       <CoupleSpaceForm
         coupleSpaceId={coupleSpace.id}
         name={coupleSpace.name}
-        coverPath={coupleSpace.coverPath}
         publicSlug={coupleSpace.publicSlug}
       />
 
