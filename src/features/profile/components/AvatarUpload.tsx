@@ -1,12 +1,15 @@
 import PhotoCameraRoundedIcon from "@mui/icons-material/PhotoCameraRounded";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import type { Area } from "react-easy-crop";
 
 import { IconActionButton } from "@/components/buttons/IconActionButton";
 import { UserAvatar } from "@/components/media/UserAvatar";
+import { getCroppedImageBlob } from "@/utils/cropImage";
 
 import { useUploadAvatar } from "../hooks/useUploadAvatar";
+import { AvatarCropDialog } from "./AvatarCropDialog";
 
 interface AvatarUploadProps {
   avatarPath: string | null | undefined;
@@ -16,13 +19,32 @@ interface AvatarUploadProps {
 export function AvatarUpload({ avatarPath, displayName }: AvatarUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const uploadAvatar = useUploadAvatar();
+  const [pendingImageSrc, setPendingImageSrc] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = "";
     if (file) {
-      uploadAvatar.mutate(file);
+      setPendingImageSrc(URL.createObjectURL(file));
     }
+  };
+
+  const closeCropDialog = () => {
+    if (pendingImageSrc) {
+      URL.revokeObjectURL(pendingImageSrc);
+    }
+    setPendingImageSrc(null);
+  };
+
+  const handleCropConfirm = async (cropArea: Area) => {
+    if (!pendingImageSrc) {
+      return;
+    }
+    const croppedBlob = await getCroppedImageBlob(pendingImageSrc, cropArea);
+    const croppedFile = new File([croppedBlob], "avatar.webp", {
+      type: "image/webp",
+    });
+    uploadAvatar.mutate(croppedFile, { onSuccess: closeCropDialog });
   };
 
   return (
@@ -62,6 +84,16 @@ export function AvatarUpload({ avatarPath, displayName }: AvatarUploadProps) {
         onChange={handleFileChange}
         sx={{ display: "none" }}
       />
+
+      {pendingImageSrc ? (
+        <AvatarCropDialog
+          open
+          imageSrc={pendingImageSrc}
+          isSaving={uploadAvatar.isPending}
+          onClose={closeCropDialog}
+          onConfirm={handleCropConfirm}
+        />
+      ) : null}
     </Box>
   );
 }
