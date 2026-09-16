@@ -1,11 +1,10 @@
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 
 import { PageContainer } from "@/components/layout/PageContainer";
-import { LogoutButton } from "@/features/authentication/components/LogoutButton";
 import { useCoupleSpace } from "@/features/couple-space/hooks/useCoupleSpace";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -14,6 +13,7 @@ import { CacheSection } from "../components/CacheSection";
 import { ChangePasswordSection } from "../components/ChangePasswordSection";
 import { CoupleSpaceSettingsSection } from "../components/CoupleSpaceSettingsSection";
 import { DeleteAccountDialog } from "../components/DeleteAccountDialog";
+import { LogoutSection } from "../components/LogoutSection";
 import { MediaPreferencesSection } from "../components/MediaPreferencesSection";
 import { PrivacySection } from "../components/PrivacySection";
 import { SettingsSection } from "../components/SettingsSection";
@@ -34,9 +34,8 @@ export function SettingsPage() {
       <Stack spacing={3} sx={{ maxWidth: 560 }}>
         <SettingsSection title="Account" description={user?.email}>
           <ChangePasswordSection />
-          <Box>
-            <LogoutButton />
-          </Box>
+          <Divider />
+          <LogoutSection />
         </SettingsSection>
 
         {coupleSpace ? (
