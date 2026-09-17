@@ -4,7 +4,7 @@ export const UPLOAD_LIMITS = {
   maxVideoDurationSeconds: 300,
   maxFilesPerUpload: 20,
   acceptedPhotoTypes: ["image/jpeg", "image/png", "image/webp"],
-  acceptedVideoTypes: ["video/mp4", "video/webm"],
+  acceptedVideoTypes: ["video/mp4", "video/webm", "video/quicktime"],
 } as const;
 
 export type AcceptedMediaType =

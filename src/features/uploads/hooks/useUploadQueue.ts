@@ -98,7 +98,13 @@ export function useUploadQueue() {
 
         setStatus(item.id, "uploading", { progress: 40 });
 
-        const extension = getFileExtension(item.file);
+        // Photos are always re-encoded to WEBP by compressImageFile, so the
+        // stored extension must reflect that rather than the source file's
+        // original format. Videos pass through untouched.
+        const extension =
+          item.mediaType === "video"
+            ? getFileExtension(item.file)
+            : "webp";
         const mediaPath = buildMemoryMediaPath(
           coupleSpace.id,
           memoryId,

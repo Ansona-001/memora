@@ -19,12 +19,20 @@ export async function getPhotoCapturedAt(file: File): Promise<Date | null> {
   }
 }
 
+/**
+ * Compresses a full-resolution photo before upload. Encodes to WEBP rather
+ * than keeping the original format - at matched visual quality WEBP runs
+ * noticeably smaller than JPEG/PNG, so this cuts upload and viewing load
+ * time without a visible quality drop. Callers must treat the output as
+ * WEBP for storage path/extension purposes, since it no longer matches the
+ * input file's format.
+ */
 export async function compressImageFile(file: File): Promise<File> {
   return imageCompression(file, {
-    maxSizeMB: 2,
+    maxSizeMB: 1.5,
     maxWidthOrHeight: 2560,
     useWebWorker: true,
-    fileType: file.type,
+    fileType: "image/webp",
   });
 }
 

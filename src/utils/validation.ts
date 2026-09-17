@@ -16,7 +16,7 @@ export function validateUploadFile(file: File): string | null {
     return null;
   }
 
-  return "Unsupported file type. Upload a JPEG, PNG, WEBP, MP4, or WEBM file.";
+  return "Unsupported file type. Upload a JPEG, PNG, WEBP, MP4, MOV, or WEBM file.";
 }
 
 export function validateVideoDuration(durationSeconds: number): string | null {
